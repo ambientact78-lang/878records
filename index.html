@@ -5,6 +5,67 @@
     <title>878 Records</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- NEW: Simple banner styling + animation -->
+    <style>
+      .new-track-banner {
+        margin: 28px auto 10px auto;
+        max-width: 720px;
+        padding: 18px 22px;
+        border-radius: 18px;
+        border: 1px solid rgba(250, 204, 21, 0.4);
+        background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.14), rgba(15, 23, 42, 0.96));
+        text-align: center;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        animation: bannerEnter 1.1s ease-out forwards;
+      }
+
+      .new-track-tag {
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #facc15;
+        opacity: 0.9;
+        margin-bottom: 6px;
+      }
+
+      .new-track-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #f9fafb;
+        margin: 4px 0;
+      }
+
+      .new-track-subtitle {
+        font-size: 0.9rem;
+        color: rgba(226, 232, 240, 0.92);
+        margin-top: 4px;
+      }
+
+      .new-track-banner .square-buy-button {
+        margin-top: 14px;
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      @keyframes bannerEnter {
+        0% {
+          opacity: 0;
+          transform: translateY(28px) scale(0.95);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+        55% {
+          opacity: 1;
+          transform: translateY(-6px) scale(1.03);
+          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="page-wrapper">
@@ -43,20 +104,32 @@
             <li><strong>ONKC Beats</strong> – instrumentals, beats, and production</li>
           </ul>
 
+          <!-- NEW FEATURED TRACK BANNER (Come Up w/ ONKC Beats) -->
+          <section class="new-track-banner">
+            <div class="new-track-tag">Pre-Purchase Our Upcoming Track!</div>
+            <div class="new-track-title">“Come Up” · Ambient Act x ONKCBeats</div>
+            <p class="new-track-subtitle">
+              A hard-hitting trap/R&B fusion built around punchy drums, warped synths, and smooth melodic vocals — an anthem about rising above the noise and leveling up.
+            </p>
+            <a
+              class="square-buy-button"
+              href="store.html"
+            >
+              Exclusive Access to “Come Up”
+            </a>
+          </section>
+
           <div class="track-list">
-  <!-- Your Embedded Player Goes Here -->
-  <div class="embed-player">
-    <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/album/0xjLFluM2k8BxvQ592CvQW?utm_source=generator"
-        width="100%" height="152" frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-    </iframe>
-  </div>
-
-</div>
-
-          
+            <!-- Your Embedded Player Goes Here -->
+            <div class="embed-player">
+              <iframe style="border-radius:12px"
+                  src="https://open.spotify.com/embed/album/0xjLFluM2k8BxvQ592CvQW?utm_source=generator"
+                  width="100%" height="152" frameborder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy">
+              </iframe>
+            </div>
+          </div>
         </main>
 
         <!-- Footer -->
