@@ -1,0 +1,433 @@
+/* ========= Global Styles for 878 Records ========= */
+
+/* Reset-ish */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Color system */
+:root {
+  --bg-gradient-start: #2e1065;  /* deep royal purple */
+  --bg-gradient-end:   #7c3aed;  /* bright royal purple */
+  --tab-border:        #facc15;  /* yellow */
+  --tab-bg-active:     rgba(250, 204, 21, 0.1); /* subtle yellow tint */
+  --card-bg:           rgba(15, 23, 42, 0.8);   /* dark glass card */
+  --text-main:         #f9fafb;  /* near white */
+  --text-muted:        #cbd5f5;
+  --accent:            #facc15;
+  --shadow-soft:       0 18px 35px rgba(0, 0, 0, 0.45);
+}
+
+/* Full-page background */
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background: radial-gradient(circle at top left, #a855f7 0, transparent 55%),
+              radial-gradient(circle at bottom right, #4c1d95 0, transparent 50%),
+              linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;
+}
+
+/* Centered content container */
+.page-wrapper {
+  width: 100%;
+  max-width: 960px;
+}
+
+/* "Card" that holds content */
+.main-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 32px 28px 36px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(14px);
+}
+
+/* Header / title */
+.site-title {
+  text-align: center;
+  font-size: 2.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fefce8;
+}
+
+.site-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+/* Navigation tabs */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.nav-tab {
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--tab-border);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: transparent;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.nav-tab:hover {
+  background: rgba(250, 204, 21, 0.12); /* light yellow glow */
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
+}
+
+/* Active tab (for current page) */
+.nav-tab.active {
+  background: var(--tab-bg-active);
+  border-color: #fde047; /* slightly brighter yellow */
+}
+
+/* Main content area */
+.content {
+  margin-top: 12px;
+}
+
+/* Headings in content */
+.content h1 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.content h2 {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  color: var(--accent);
+}
+
+/* Paragraphs */
+.content p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* Simple list styling */
+.content ul {
+  margin: 10px 0 4px 20px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.content li {
+  margin-bottom: 4px;
+}
+
+/* Section for track list / embeds later */
+.track-list {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Footer */
+.footer {
+  margin-top: 26px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: rgba(148, 163, 184, 0.8);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .main-card {
+    padding: 22px 18px 26px;
+  }
+
+  .site-title {
+    font-size: 2rem;
+  }
+
+  .nav-tab {
+    width: 48%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+/* ========= Ambient Act Artist Page Layout ========= */
+
+/* Hero: image + name + buttons */
+.artist-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+/* Artist image container */
+.artist-photo {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 2px solid rgba(250, 204, 21, 0.7);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.8);
+}
+
+.artist-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text next to the image */
+.artist-header-text h1 {
+  font-size: 1.9rem;
+  margin-bottom: 6px;
+}
+
+.artist-tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* Listen / follow buttons */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(250, 204, 21, 0.7);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  color: var(--text-main);
+  background: rgba(15, 23, 42, 0.85);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.chip-button:hover {
+  transform: translateY(-1px);
+  background: rgba(250, 204, 21, 0.08);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.9);
+}
+
+/* Two-column section for bio + highlights */
+.two-column {
+  display: grid;
+  grid-template-columns: 2.2fr 1.3fr;
+  gap: 24px;
+  margin-top: 10px;
+  margin-bottom: 26px;
+}
+
+/* Box for the right column callouts */
+.info-panel {
+  padding: 14px 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.08), transparent 55%),
+              rgba(15, 23, 42, 0.9);
+}
+
+/* Music / embed section */
+.embed-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+/* Fake embed box (replace with real iframe later) */
+.embed-placeholder {
+  border-radius: 16px;
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  padding: 14px 14px 16px;
+  background: rgba(15, 23, 42, 0.7);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Album / project card grid */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.album-card {
+  border-radius: 16px;
+  padding: 10px 12px 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.album-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.album-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Link buttons (socials etc.) */
+.link-buttons {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-pill {
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: var(--text-main);
+  background: rgba(15, 23, 42, 0.85);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.link-pill:hover {
+  background: rgba(250, 204, 21, 0.09);
+  transform: translateY(-1px);
+}
+
+/* Responsive tweaks for artist page */
+@media (max-width: 800px) {
+  .artist-hero {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .artist-header-text h1 {
+    margin-top: 10px;
+  }
+
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .embed-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Clean, modern styling for embedded players */
+.embed-player {
+  padding: 0;
+  margin-bottom: 18px;
+}
+
+.embed-player iframe {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+  margin: 0;
+}
+.embed-placeholder {
+  margin-bottom: 22px;
+}
+/* ===== Store product cards ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.product-card {
+  background: radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), rgba(15, 23, 42, 0.98));
+  border-radius: 20px;
+  padding: 16px 16px 14px;
+  border: 1px solid rgba(250, 204, 21, 0.35); /* soft gold frame */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px;
+}
+
+.product-title {
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+  color: #fefce8;
+  margin-bottom: 6px;
+}
+
+.product-meta {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.product-footer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.product-price {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #facc15; /* gold */
+}
+
+

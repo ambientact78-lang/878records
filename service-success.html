@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Payment Successful · 878 Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="main-card">
+        <header>
+          <div class="site-title">878 Records</div>
+          <div class="site-subtitle">Payment Successful</div>
+        </header>
+
+        <main class="content">
+          <p class="artist-tagline" style="margin-top: 10px;">
+            Your payment was successful. We’re getting your service request page ready…
+          </p>
+        </main>
+
+        <footer class="footer">
+          © 878 Records · Services
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      // Mark that this browser has just paid
+      localStorage.setItem("paidForService", "yes");
+
+      // Send them to the actual service request page
+      window.location.href = "service-request.html";
+    </script>
+  </body>
+</html>

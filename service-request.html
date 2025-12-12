@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Service Request · 878 Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+    <body>
+    <!-- 🔒 SIMPLE PAYMENT CHECK: REQUIRE ?paid=1 IN URL -->
+    <script>
+      (function () {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const isPaid = params.get('paid') === '1';
+
+          // If there's no ?paid=1 flag, send them back to the store
+          if (!isPaid) {
+            window.location.href = 'store.html';
+          }
+        } catch (e) {
+          // If something goes wrong, fail closed (back to store)
+          window.location.href = 'store.html';
+        }
+      })();
+    </script>
+    <!-- END PAYMENT CHECK -->
+
+    <div class="page-wrapper">
+      <div class="main-card">
+        <!-- Heading -->
+        <header>
+          <div class="site-title">878 Records</div>
+          <div class="site-subtitle">One-Time Service Request</div>
+        </header>
+
+        <!-- Same nav as your other pages -->
+        <nav class="nav-tabs">
+          <a class="nav-tab" href="index.html">Home</a>
+          <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
+          <a class="nav-tab" href="torok.html">Torok</a>
+          <a class="nav-tab" href="kdotz.html">KDOTZ</a>
+          <a class="nav-tab" href="onkc-beats.html">ONKC Beats</a>
+          <a class="nav-tab" href="store.html">Store</a>
+        </nav>
+
+        <main class="content">
+          <section style="margin-top: 10px;">
+            <h1>Service Details</h1>
+            <p class="artist-tagline" style="margin-top: 8px;">
+              Thanks for your payment. Choose up to
+              <strong>3 plugins</strong>, and then email us your files.
+            </p>
+          </section>
+
+          <section style="margin-top: 16px;">
+            <div style="padding: 14px; border: 1px solid rgba(250,204,21,0.3); border-radius: 12px;">
+              <!-- We’re not using a real <form> submit; JS will build a mailto: email -->
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 0.9rem; color: #fefce8;">Your email</label>
+                <input
+                  id="sr-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  style="width: 100%; margin-top: 4px; padding: 8px; border-radius: 8px; border: none; background: rgba(15,23,42,0.9); color: #fefce8;"
+                />
+              </div>
+              <p class="artist-tagline" style="margin-top: 6px;">
+                Choose up to <strong>3 plugins</strong> you’d like us to use. Leave Plugin 2 or 3 blank if not needed.
+              </p>
+
+              <!-- Plugin dropdowns -->
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                <div>
+                  <label style="font-size: 0.9rem; color: #fefce8;">Plugin choice 1 (required)</label>
+                  <select
+                    id="sr-plugin1"
+                    style="width: 100%; margin-top: 4px; padding: 8px; border-radius: 8px; border: none; background: rgba(15,23,42,0.9); color: #fefce8;"
+                  >
+                    <option value="">-- Select plugin --</option>
+                    <!-- Pitch Correction -->
+                    <option>Pitch – Melodyne</option>
+                    <option>Pitch – Metatune</option>
+                    <option>Pitch – Waves Tune</option>
+                    <!-- Compression -->
+                    <option>Comp – FabFilter Pro C</option>
+                    <option>Comp – FabFilter Pro MB</option>
+                    <option>Comp – Softube CL-1B</option>
+                    <option>Comp – Softube TLA-100A</option>
+                    <option>Comp – UAD 1176 FET</option>
+                    <option>Comp – UAD LA-2A</option>
+                    <option>Comp – Waves RVOX</option>
+                    <option>Comp – Waves RCOMP</option>
+                    <option>Comp – Waves C4</option>
+                    <option>Comp – Waves M2</option>
+                    <option>Comp – Waves CLA-76</option>
+                    <option>Comp – Waves CLA-2A</option>
+                    <!-- EQ -->
+                    <option>EQ – FabFilter Pro-Q4</option>
+                    <option>EQ – Waves F6</option>
+                    <option>EQ – Waves Puigtech EQP1A</option>
+                    <option>EQ – UAD Putleq EQP-1A</option>
+                    <!-- Saturation -->
+                    <option>Sat – FabFilter Saturn 2</option>
+                    <option>Sat – PA Noveltech Vocal Enhancer</option>
+                    <option>Sat – Waves BB Tubes</option>
+                    <option>Sat – Waves Vitamin</option>
+                    <!-- Transient -->
+                    <option>Transient – KNOCK</option>
+                    <option>Transient – Waves TransX</option>
+                    <option>Transient – PA SPL Transient Designer Plus</option>
+                    <!-- De-esser -->
+                    <option>De-Esser – FabFilter Pro-DS</option>
+                    <option>De-Esser – Waves RDeEsser</option>
+                    <option>De-Esser – Softube DeEsser</option>
+                    <option>De-Esser – Shwabe Digital HiFal</option>
+                    <!-- Noise -->
+                    <option>Noise – FL Limiter</option>
+                    <option>Noise – Edison Denoiser</option>
+                    <option>Noise – Waves NS1</option>
+                    <option>Noise – Waves X-Noise</option>
+                    <option>Noise – Waves WNS</option>
+                    <option>Noise – Waves Clarity VX</option>
+                    <option>Noise – Waves DeReverb VX</option>
+                    <option>Noise – PA SPL DeVerb Plus</option>
+                    <!-- Creative FX -->
+                    <option>FX – ValhallaVintageVerb</option>
+                    <option>FX – SuperPlate</option>
+                    <option>FX – Waves H-Delay</option>
+                    <option>FX – FabFilter Timeless</option>
+                    <option>FX – ValhallaDelay</option>
+                    <option>FX – Echoboy</option>
+                    <option>FX – RC-20 Color</option>
+                    <option>FX – ShaperBox</option>
+                    <!-- Mastering -->
+                    <option>Master – Ozone 11 Advanced</option>
+                    <option>Master – FabFilter Pro-L2</option>
+                    <option>Master – Gullfoss</option>
+                    <option>Master – HiFall</option>
+                    <option>Master – StandardClip</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.9rem; color: #fefce8;">Plugin choice 2 (optional)</label>
+                  <select
+                    id="sr-plugin2"
+                    style="width: 100%; margin-top: 4px; padding: 8px; border-radius: 8px; border: none; background: rgba(15,23,42,0.9); color: #fefce8;"
+                  >
+                    <option value="">-- Select plugin --</option>
+                    <!-- same options as above -->
+                    <option>Pitch – Melodyne</option>
+                    <option>Pitch – Metatune</option>
+                    <option>Pitch – Waves Tune</option>
+                    <option>Comp – FabFilter Pro C</option>
+                    <option>Comp – FabFilter Pro MB</option>
+                    <option>Comp – Softube CL-1B</option>
+                    <option>Comp – Softube TLA-100A</option>
+                    <option>Comp – UAD 1176 FET</option>
+                    <option>Comp – UAD LA-2A</option>
+                    <option>Comp – Waves RVOX</option>
+                    <option>Comp – Waves RCOMP</option>
+                    <option>Comp – Waves C4</option>
+                    <option>Comp – Waves M2</option>
+                    <option>Comp – Waves CLA-76</option>
+                    <option>Comp – Waves CLA-2A</option>
+                    <option>EQ – FabFilter Pro-Q4</option>
+                    <option>EQ – Waves F6</option>
+                    <option>EQ – Waves Puigtech EQP1A</option>
+                    <option>EQ – UAD Putleq EQP-1A</option>
+                    <option>Sat – FabFilter Saturn 2</option>
+                    <option>Sat – PA Noveltech Vocal Enhancer</option>
+                    <option>Sat – Waves BB Tubes</option>
+                    <option>Sat – Waves Vitamin</option>
+                    <option>Transient – KNOCK</option>
+                    <option>Transient – Waves TransX</option>
+                    <option>Transient – PA SPL Transient Designer Plus</option>
+                    <option>De-Esser – FabFilter Pro-DS</option>
+                    <option>De-Esser – Waves RDeEsser</option>
+                    <option>De-Esser – Softube DeEsser</option>
+                    <option>De-Esser – Shwabe Digital HiFal</option>
+                    <option>Noise – FL Limiter</option>
+                    <option>Noise – Edison Denoiser</option>
+                    <option>Noise – Waves NS1</option>
+                    <option>Noise – Waves X-Noise</option>
+                    <option>Noise – Waves WNS</option>
+                    <option>Noise – Waves Clarity VX</option>
+                    <option>Noise – Waves DeReverb VX</option>
+                    <option>Noise – PA SPL DeVerb Plus</option>
+                    <option>FX – ValhallaVintageVerb</option>
+                    <option>FX – SuperPlate</option>
+                    <option>FX – Waves H-Delay</option>
+                    <option>FX – FabFilter Timeless</option>
+                    <option>FX – ValhallaDelay</option>
+                    <option>FX – Echoboy</option>
+                    <option>FX – RC-20 Color</option>
+                    <option>FX – ShaperBox</option>
+                    <option>Master – Ozone 11 Advanced</option>
+                    <option>Master – FabFilter Pro-L2</option>
+                    <option>Master – Gullfoss</option>
+                    <option>Master – HiFall</option>
+                    <option>Master – StandardClip</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.9rem; color: #fefce8;">Plugin choice 3 (optional)</label>
+                  <select
+                    id="sr-plugin3"
+                    style="width: 100%; margin-top: 4px; padding: 8px; border-radius: 8px; border: none; background: rgba(15,23,42,0.9); color: #fefce8;"
+                  >
+                    <option value="">-- Select plugin --</option>
+                    <!-- same options again -->
+                    <option>Pitch – Melodyne</option>
+                    <option>Pitch – Metatune</option>
+                    <option>Pitch – Waves Tune</option>
+                    <option>Comp – FabFilter Pro C</option>
+                    <option>Comp – FabFilter Pro MB</option>
+                    <option>Comp – Softube CL-1B</option>
+                    <option>Comp – Softube TLA-100A</option>
+                    <option>Comp – UAD 1176 FET</option>
+                    <option>Comp – UAD LA-2A</option>
+                    <option>Comp – Waves RVOX</option>
+                    <option>Comp – Waves RCOMP</option>
+                    <option>Comp – Waves C4</option>
+                    <option>Comp – Waves M2</option>
+                    <option>Comp – Waves CLA-76</option>
+                    <option>Comp – Waves CLA-2A</option>
+                    <option>EQ – FabFilter Pro-Q4</option>
+                    <option>EQ – Waves F6</option>
+                    <option>EQ – Waves Puigtech EQP1A</option>
+                    <option>EQ – UAD Putleq EQP-1A</option>
+                    <option>Sat – FabFilter Saturn 2</option>
+                    <option>Sat – PA Noveltech Vocal Enhancer</option>
+                    <option>Sat – Waves BB Tubes</option>
+                    <option>Sat – Waves Vitamin</option>
+                    <option>Transient – KNOCK</option>
+                    <option>Transient – Waves TransX</option>
+                    <option>Transient – PA SPL Transient Designer Plus</option>
+                    <option>De-Esser – FabFilter Pro-DS</option>
+                    <option>De-Esser – Waves RDeEsser</option>
+                    <option>De-Esser – Softube DeEsser</option>
+                    <option>De-Esser – Shwabe Digital HiFal</option>
+                    <option>Noise – FL Limiter</option>
+                    <option>Noise – Edison Denoiser</option>
+                    <option>Noise – Waves NS1</option>
+                    <option>Noise – Waves X-Noise</option>
+                    <option>Noise – Waves WNS</option>
+                    <option>Noise – Waves Clarity VX</option>
+                    <option>Noise – Waves DeReverb VX</option>
+                    <option>Noise – PA SPL DeVerb Plus</option>
+                    <option>FX – ValhallaVintageVerb</option>
+                    <option>FX – SuperPlate</option>
+                    <option>FX – Waves H-Delay</option>
+                    <option>FX – FabFilter Timeless</option>
+                    <option>FX – ValhallaDelay</option>
+                    <option>FX – Echoboy</option>
+                    <option>FX – RC-20 Color</option>
+                    <option>FX – ShaperBox</option>
+                    <option>Master – Ozone 11 Advanced</option>
+                    <option>Master – FabFilter Pro-L2</option>
+                    <option>Master – Gullfoss</option>
+                    <option>Master – HiFall</option>
+                    <option>Master – StandardClip</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Extra notes -->
+              <div style="margin-top: 14px;">
+                <label style="font-size: 0.9rem; color: #fefce8;">Additional notes</label>
+                <textarea
+                  id="sr-notes"
+                  placeholder="Tell us about the track, vibe, references, what you want us to focus on."
+                  style="width: 100%; height: 110px; margin-top: 6px; padding: 10px; border-radius: 8px; border: none; outline: none; background: rgba(255,255,255,0.06); color: white;"
+                ></textarea>
+              </div>
+
+              <p class="artist-tagline" style="margin-top: 10px;">
+                After you click the button below, your email app will open with everything filled out.
+                Just attach your audio files (WAV/ZIP) and hit send.
+              </p>
+
+              <button
+                id="sr-send-btn"
+                type="button"
+                class="square-buy-button"
+                style="margin-top: 12px;"
+              >
+                Email Service Request
+              </button>
+            </div>
+          </section>
+        </main>
+
+        <footer class="footer">
+          © 878 Records · Services
+        </footer>
+      </div>
+    </div>
+
+    <!-- Tiny script to build the email -->
+    <script>
+      document.getElementById('sr-send-btn').addEventListener('click', function () {
+        const emailInput = document.getElementById('sr-email');
+        const p1Input = document.getElementById('sr-plugin1');
+        const p2Input = document.getElementById('sr-plugin2');
+        const p3Input = document.getElementById('sr-plugin3');
+        const notesInput = document.getElementById('sr-notes');
+
+        const email = emailInput ? emailInput.value.trim() : '';
+        const p1 = p1Input ? p1Input.value : '';
+        const p2 = p2Input ? p2Input.value : '';
+        const p3 = p3Input ? p3Input.value : '';
+        const notes = notesInput ? notesInput.value.trim() : '';
+
+        if (!email) {
+          alert('Please enter your email so we can reply.');
+          return;
+        }
+
+        if (!p1) {
+          alert('Please select at least one plugin (Plugin choice 1).');
+          return;
+        }
+
+        const subject = encodeURIComponent('One-Time Service Request – ' + email);
+
+        const bodyLines = [
+          'Customer email: ' + email,
+          '',
+          'Stripe payment: already verified via checkout.',
+          '',
+          'Plugin choices:',
+          '1: ' + p1,
+          '2: ' + (p2 || '—'),
+          '3: ' + (p3 || '—'),
+          '',
+          'Additional notes:',
+          notes || '—',
+          '',
+          'Remember to attach your audio files (WAV/ZIP) before sending.'
+        ];
+
+        const body = encodeURIComponent(bodyLines.join('\n'));
+
+        window.location.href =
+          'mailto:ambientact78@gmail.com?subject=' + subject + '&body=' + body;
+      });
+    </script>
+
+  </body>
+</html>
