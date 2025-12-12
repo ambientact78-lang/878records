@@ -429,5 +429,38 @@ body {
   font-size: 0.9rem;
   color: #facc15; /* gold */
 }
+.home-intro {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.home-intro h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f9fafb;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+.album-description {
+  margin: 20px auto 14px auto;
+  max-width: 700px;
+  text-align: center;
+}
+
+.album-streaming-tag {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #facc15;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.album-text {
+  font-size: 0.95rem;
+  color: rgba(229, 231, 235, 0.92);
+  line-height: 1.55;
+  margin-top: 8px;
+}
 
 
