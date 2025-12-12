@@ -6,7 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
+    <!-- 🔒 REQUIRE ?paid=1 FROM STRIPE -->
+    <script>
+      (function () {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("paid") !== "1") {
+            window.location.href = "store.html";
+          }
+        } catch (e) {
+          window.location.href = "store.html";
+        }
+      })();
+    </script>
+
     <div class="page-wrapper">
       <div class="main-card">
         <header>
@@ -27,7 +42,7 @@
             <div style="margin-top: 18px;">
               <a
                 class="square-buy-button"
-                href="Senioritis.zip"
+                href="https://github.com/ambientact78-lang/878records/releases/download/v1.0/Senioritis.zip"
                 download
               >
                 Download Senioritis (ZIP)

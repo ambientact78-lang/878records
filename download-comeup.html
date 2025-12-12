@@ -2,11 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Download Come Up (with ONKC beats)· Ambient Act</title>
+    <title>Download Come Up (with ONKC beats) · Ambient Act</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
+    <!-- 🔒 REQUIRE ?paid=1 FROM STRIPE -->
+    <script>
+      (function () {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("paid") !== "1") {
+            window.location.href = "store.html";
+          }
+        } catch (e) {
+          window.location.href = "store.html";
+        }
+      })();
+    </script>
+
     <div class="page-wrapper">
       <div class="main-card">
         <header>
@@ -21,13 +36,13 @@
               Your purchase helps keep the music independent and alive.
             </p>
             <p style="margin-top: 12px;">
-              Click the button below to download <strong>Come up (with ONKC beats)</strong> as a ZIP file.
+              Click the button below to download <strong>Come Up (with ONKC Beats)</strong> as a ZIP file.
             </p>
 
             <div style="margin-top: 18px;">
               <a
                 class="square-buy-button"
-                href="come-up-final.zip"
+                href="https://github.com/ambientact78-lang/878records/releases/download/v1.0/come-up-final.zip"
                 download
               >
                 Download COME UP FINAL (ZIP)
