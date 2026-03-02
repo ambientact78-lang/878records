@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css?v=13" />
 
-    <!-- NEW: Simple banner styling + animation -->
     <style>
       .new-track-banner {
         margin: 28px auto 10px auto;
@@ -49,34 +48,21 @@
       }
 
       @keyframes bannerEnter {
-        0% {
-          opacity: 0;
-          transform: translateY(28px) scale(0.95);
-          box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        }
-        55% {
-          opacity: 1;
-          transform: translateY(-6px) scale(1.03);
-          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
-        }
+        0% { opacity: 0; transform: translateY(28px) scale(0.95); }
+        55% { opacity: 1; transform: translateY(-6px) scale(1.03); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
       }
     </style>
   </head>
   <body>
     <div class="page-wrapper">
       <div class="main-card">
-        <!-- Site Heading -->
+
         <header>
           <div class="site-title">878 Records</div>
           <div class="site-subtitle">Independent Music Collective</div>
         </header>
 
-        <!-- Tabs -->
         <nav class="nav-tabs">
           <a class="nav-tab" href="index.html">Home</a>
           <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
@@ -86,37 +72,30 @@
           <a class="nav-tab" href="store.html">Store</a>
         </nav>
 
-        <!-- Main Content -->
         <main class="content">
       
-       <!-- FEATURED KDOTZ VIDEO -->
+       <!-- FEATURED VIDEO BANNER -->
 <section class="new-track-banner">
-  <div class="new-track-tag">New Visual Release</div>
-  <div class="new-track-title">KDOTZ — Dark Reflection</div>
+  <div id="videoTag" class="new-track-tag">New Visual Release</div>
 
-  <p class="new-track-subtitle">
+  <div id="heroTitle" class="new-track-title">
+    KDOTZ — Dark Reflection
+  </div>
+
+  <p id="heroSubtitle" class="new-track-subtitle">
    KDOTZ stands out not only as the artist behind this record, but also as the creative force
 driving the visual itself. Handling both performance and direction, he translates the
 song’s emotional weight directly to the screen — using shadow, pacing, and restraint
 to mirror the internal conflict at the core of the track.
-
-Produced by Ambient Act, the record was built with dark, minimal textures, heavy low-end,
-and intentional space — allowing the vocals and visuals to carry the message without
-distraction. The result is a melancholic reflection on wrong choices, self-destructive
-patterns, and the consequences of dealing with pain in the wrong way.
-
-Together, the music and video form a cohesive statement — raw, honest, and unfiltered —
-showcasing KDOTZ not just as a rapper, but as a complete visual storyteller.
-
   </p>
 
-  <!-- YouTube Embed -->
   <div style="margin-top: 16px; border-radius: 14px; overflow: hidden;">
     <iframe
+      id="featuredVideo"
       width="100%"
       height="315"
       src="https://www.youtube.com/embed/wDRYFmNaLuI"
-      title="KDOTZ Official Video"
+      title="Featured Video"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
@@ -124,75 +103,77 @@ showcasing KDOTZ not just as a rapper, but as a complete visual storyteller.
   </div>
 </section>
 
+<!-- FEATURED TRACK BANNER -->
+<section class="new-track-banner">
+  <div id="trackTag" class="new-track-tag">
+    Pre-Purchase Our Upcoming Track!
+  </div>
 
-          <!-- NEW FEATURED TRACK BANNER (Come Up w/ ONKC Beats) -->
-          <section class="new-track-banner">
-            <div class="new-track-tag">Pre-Purchase Our Upcoming Track!</div>
-            <div class="new-track-title">“Come Up” · Ambient Act x ONKCBeats</div>
-            <p class="new-track-subtitle">
-              A hard-hitting trap/R&B fusion built around punchy drums, warped synths, and smooth melodic vocals — an anthem about rising above the noise and leveling up.
-            </p>
-            <a
-              class="square-buy-button"
-              href="store.html"
-            >
-              Exclusive Access to “Come Up”
-            </a>
-          </section>
-          <div class="album-description">
-  
+  <div id="trackTitle" class="new-track-title">
+    “Come Up” · Ambient Act x ONKCBeats
+  </div>
 
-          <div class="track-list">
-            <!-- Your Embedded Player Goes Here -->
-            <div class="embed-player">
-              <iframe style="border-radius:12px"
-                  src="https://open.spotify.com/embed/album/0xjLFluM2k8BxvQ592CvQW?utm_source=generator"
-                  width="100%" height="152" frameborder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy">
-              </iframe>
-            </div>
-            <div class="album-streaming-tag">Senioritis</div>
-  <h1>
-  Now Streaming!
-        </h1>
-  <p class="album-text">
-    Senioritis is a new record from Ambient Act is the culmination of years spent refining a unique blend 
-    of hip-hop production, sampling, and storytelling. Balancing pop-rap sensibilities with 
-    atmospheric textures, Ambient Act crafts a narrative-driven project that feels both intimate 
-    and cinematic — staying true to his identity while expanding his sound.
+  <p id="trackSubtitle" class="new-track-subtitle">
+    A hard-hitting trap/R&B fusion built around punchy drums, warped synths, and smooth melodic vocals — an anthem about rising above the noise and leveling up.
   </p>
+
+  <a
+    id="trackButton"
+    class="square-buy-button"
+    href="store.html"
+  >
+    Exclusive Access to “Come Up”
+  </a>
+</section>
+
+<div class="album-description">
+<div class="track-list">
+
+<div class="embed-player">
+  <iframe style="border-radius:12px"
+      src="https://open.spotify.com/embed/album/0xjLFluM2k8BxvQ592CvQW?utm_source=generator"
+      width="100%" height="152" frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+  </iframe>
 </div>
-          </div>
+
+<div class="album-streaming-tag">Senioritis</div>
+<h1>Now Streaming!</h1>
+
+<p class="album-text">
+Senioritis is a new record from Ambient Act is the culmination of years spent refining a unique blend 
+of hip-hop production, sampling, and storytelling.
+</p>
+
+</div>
+</div>
+
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
           © 878 Records · All Rights Reserved
         </footer>
+
       </div>
     </div>
 
-<!-- Firebase SDKs -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  // 🔥 YOUR FIREBASE CONFIG
-   const firebaseConfig = {
-    apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
-    authDomain:        "records-website-2f8fe.firebaseapp.com",
-    projectId:         "records-website-2f8fe",
-    storageBucket:     "records-website-2f8fe.firebasestorage.app",
+  const firebaseConfig = {
+    apiKey: "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
+    authDomain: "records-website-2f8fe.firebaseapp.com",
+    projectId: "records-website-2f8fe",
+    storageBucket: "records-website-2f8fe.firebasestorage.app",
     messagingSenderId: "456307633504",
-    appId:             "1:456307633504:web:b78fbb00d0bd1e87750205"
+    appId: "1:456307633504:web:b78fbb00d0bd1e87750205"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Pull Home Page Config
   async function loadHomePage() {
     const docRef = doc(db, "siteContent", "home");
     const docSnap = await getDoc(docRef);
@@ -200,10 +181,26 @@ showcasing KDOTZ not just as a rapper, but as a complete visual storyteller.
     if (docSnap.exists()) {
       const data = docSnap.data();
 
-      // Update page elements
-      document.getElementById("heroTitle").innerText = data.title;
-      document.getElementById("heroSubtitle").innerText = data.subtitle;
-      document.getElementById("featuredVideo").src = data.videoUrl;
+      // 🔥 FEATURED VIDEO (matches your Firestore fields)
+      document.getElementById("videoTag").innerText = data.featVideoTag || "";
+      document.getElementById("heroTitle").innerText = data.featVideoTitle || "";
+      document.getElementById("heroSubtitle").innerText = data.featVideoDesc || "";
+
+      // Convert normal YouTube link to embed format automatically
+      if (data.featVideoUrl) {
+        const embedUrl = data.featVideoUrl.includes("watch?v=")
+          ? data.featVideoUrl.replace("watch?v=", "embed/")
+          : data.featVideoUrl;
+
+        document.getElementById("featuredVideo").src = embedUrl;
+      }
+
+      // 🔥 FEATURED TRACK BANNER (matches your Firestore fields)
+      document.getElementById("trackTag").innerText = data.bannerTag || "";
+      document.getElementById("trackTitle").innerText = data.bannerTitle || "";
+      document.getElementById("trackSubtitle").innerText = data.bannerDesc || "";
+      document.getElementById("trackButton").innerText = data.bannerBtnLabel || "";
+      document.getElementById("trackButton").href = data.bannerBtnUrl || "#";
     }
   }
 
