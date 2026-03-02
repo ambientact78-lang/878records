@@ -395,7 +395,7 @@
           <button class="notify-btn" onclick="handleNotify()">Notify Me</button>
         </div>
         <p class="notify-confirm" id="notifyConfirm">✓ You're on the list — we'll reach out when the beta opens.</p>
-        <p style="font-size:0.72rem;color:rgba(148,163,184,0.3);margin-top:12px;">Contact: <a href="mailto:ambientact78@gmail.com" style="color:rgba(148,163,184,0.4);">ambientact78@gmail.com</a></p>
+        <p style="font-size:0.72rem;color:rgba(148,163,184,0.3);margin-top:12px;">Contact: <a href="/cdn-cgi/l/email-protection#d3b2beb1bab6bda7b2b0a7e4eb93b4beb2babffdb0bcbe" style="color:rgba(148,163,184,0.4);"><span class="__cf_email__" data-cfemail="d4b5b9b6bdb1baa0b5b7a0e3ec94b3b9b5bdb8fab7bbb9">[email&#160;protected]</span></a></p>
       </div>
 
     </main>
@@ -404,23 +404,48 @@
   </div>
 </div>
 
-<script>
-  function handleNotify() {
-    const email = document.getElementById('notifyEmail').value.trim();
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
+    authDomain:        "records-website-2f8fe.firebaseapp.com",
+    projectId:         "records-website-2f8fe",
+    storageBucket:     "records-website-2f8fe.firebasestorage.app",
+    messagingSenderId: "456307633504",
+    appId:             "1:456307633504:web:b78fbb00d0bd1e87750205"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  window.handleNotify = async function() {
+    const emailInput = document.getElementById('notifyEmail');
+    const email = emailInput.value.trim();
     if (!email || !email.includes('@')) {
       alert('Please enter a valid email address.');
       return;
     }
-    // For now, show confirmation. To actually collect emails, connect to Firestore or a form service.
-    document.getElementById('notifyConfirm').classList.add('visible');
-    document.getElementById('notifyEmail').value = '';
-    document.getElementById('notifyEmail').disabled = true;
-    document.querySelector('.notify-btn').disabled = true;
-    document.querySelector('.notify-btn').style.opacity = '0.4';
-  }
-  document.getElementById('notifyEmail').addEventListener('keydown', e => {
-    if (e.key === 'Enter') handleNotify();
-  });
+    const btn = document.querySelector('.notify-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    try {
+      await addDoc(collection(db, 'pluginWaitlist'), {
+        email,
+        plugin: '878-adaptive-limiter',
+        signedUpAt: new Date().toISOString()
+      });
+      document.getElementById('notifyConfirm').classList.add('visible');
+      emailInput.value = '';
+      emailInput.disabled = true;
+      btn.style.display = 'none';
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Notify Me';
+      alert('Something went wrong — please try again.');
+    }
+  };
 </script>
 </body>
 </html>
