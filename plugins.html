@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Plugins · 878 Records</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Plugin Page Styles ── */
+    .plugin-hero {
+      text-align: center;
+      padding: 32px 0 10px;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #facc15;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      border-radius: 999px;
+      padding: 4px 14px;
+      margin-bottom: 18px;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .plugin-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #fefce8;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .plugin-title span {
+      background: linear-gradient(135deg, #facc15, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .plugin-subtitle {
+      font-size: 1rem;
+      color: rgba(203, 213, 245, 0.7);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .plugin-by {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(203, 213, 245, 0.4);
+      margin-bottom: 32px;
+    }
+
+    /* Plugin screenshot */
+    .plugin-screenshot-wrap {
+      position: relative;
+      margin: 0 auto 36px;
+      max-width: 860px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      box-shadow:
+        0 0 0 1px rgba(250, 204, 21, 0.08),
+        0 24px 60px rgba(0, 0, 0, 0.7),
+        0 0 80px rgba(250, 180, 0, 0.06);
+      animation: riseIn 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .plugin-screenshot-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Gradient overlay at bottom of screenshot for bleed-in effect */
+    .plugin-screenshot-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.5), transparent);
+      pointer-events: none;
+    }
+
+    @keyframes riseIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .feature-card {
+      background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.07), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      border-radius: 16px;
+      padding: 18px 16px;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #facc15;
+      margin-bottom: 5px;
+      letter-spacing: 0.04em;
+    }
+
+    .feature-desc {
+      font-size: 0.8rem;
+      color: rgba(203, 213, 245, 0.65);
+      line-height: 1.55;
+    }
+
+    /* Article body */
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .article-body h2 {
+      font-size: 1.15rem;
+      color: #facc15;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .article-body p {
+      color: rgba(203, 213, 245, 0.78);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 24px;
+      font-size: 0.85rem;
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .spec-table tr:last-child { border-bottom: none; }
+
+    .spec-table td {
+      padding: 9px 12px;
+      color: rgba(203, 213, 245, 0.7);
+    }
+
+    .spec-table td:first-child {
+      color: rgba(250, 204, 21, 0.85);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: 40%;
+    }
+
+    /* Notify form */
+    .notify-section {
+      margin: 36px auto 10px;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .notify-section h2 {
+      font-size: 1.1rem;
+      color: #f9fafb;
+      margin-bottom: 6px;
+    }
+
+    .notify-section p {
+      font-size: 0.85rem;
+      color: rgba(203, 213, 245, 0.55);
+      margin-bottom: 18px;
+    }
+
+    .notify-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .notify-input-row input {
+      flex: 1;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(15, 23, 42, 0.8);
+      color: #f9fafb;
+      font-size: 0.88rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-input-row input:focus { border-color: rgba(250, 204, 21, 0.5); }
+
+    .notify-btn {
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(250, 204, 21, 0.6);
+      background: rgba(250, 204, 21, 0.14);
+      color: #facc15;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .notify-btn:hover { background: rgba(250, 204, 21, 0.26); }
+
+    .notify-confirm {
+      display: none;
+      color: #86efac;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+    .notify-confirm.visible { display: block; }
+
+    /* Divider line */
+    .section-rule {
+      border: none;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+      margin: 30px 0;
+    }
+
+    @media (max-width: 600px) {
+      .plugin-title { font-size: 1.6rem; }
+      .notify-input-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="main-card">
+    <header>
+      <div class="site-title">878 Records</div>
+      <div class="site-subtitle">Plugins</div>
+    </header>
+
+    <nav class="nav-tabs">
+      <a class="nav-tab" href="index.html">Home</a>
+      <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
+      <a class="nav-tab" href="torok.html">Torok</a>
+      <a class="nav-tab" href="vendetta.html">Vendetta</a>
+      <a class="nav-tab" href="onkc-beats.html">ONKCBeats</a>
+      <a class="nav-tab" href="store.html">Store</a>
+      <a class="nav-tab active" href="plugins.html">Plugins</a>
+    </nav>
+
+    <main class="content">
+
+      <div class="plugin-hero">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <h1 class="plugin-title">878 <span>Adaptive Limiter</span></h1>
+        <p class="plugin-subtitle">Multiband Limiting. Intelligent Thresholds. Zero Compromise.</p>
+        <p class="plugin-by">By Ambient Act · 878 Records · v1.0</p>
+      </div>
+
+      <!-- Screenshot -->
+      <div class="plugin-screenshot-wrap">
+        <img src="adaptive-limiter-ui.png" alt="878 Adaptive Limiter Plugin Interface" />
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎛️</div>
+          <div class="feature-name">Multiband Architecture</div>
+          <div class="feature-desc">Four independent bands — Sub, Low, Mid, and Hi — each with its own gain reduction display and threshold. Limit only what's clipping, not the entire signal.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📐</div>
+          <div class="feature-name">Linear Phase Crossovers</div>
+          <div class="feature-desc">Phase-coherent crossovers between bands eliminate the smearing and transient distortion found in minimum-phase designs. Precision mastering-grade filtering at every split point.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-name">Adaptive Thresholds</div>
+          <div class="feature-desc">The limiter continuously analyzes each frequency band and sets intelligent thresholds in real time — responding to your mix, not fixed values you have to dial in by hand.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <div class="feature-name">Harmonic Exciter</div>
+          <div class="feature-desc">Built-in Drive and Mix controls add controlled harmonic saturation to restore the energy and presence that hard limiting can remove. Brightness without harshness.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🦵</div>
+          <div class="feature-name">Variable Knee</div>
+          <div class="feature-desc">Shape the onset of limiting from hard-clip precision to a wide, smooth knee — giving you both transparent mastering control and aggressive, pumping character when you want it.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-name">LUFS Metering</div>
+          <div class="feature-desc">Integrated loudness metering with a real-time LUFS display and Reset function. Hit your streaming target levels — Spotify, Apple Music, YouTube — without guesswork.</div>
+        </div>
+      </div>
+
+      <hr class="section-rule" />
+
+      <!-- Article -->
+      <div class="article-body">
+
+        <h2>Why We Built This</h2>
+        <p>
+          Traditional limiters do one thing: they look at the full output signal and clamp everything when it crosses the ceiling. That works — but it also means a transient hit in the sub-bass causes limiting across your mids and highs. A kick drum punches, and your vocals dip. A bass note blooms, and your cymbals get crushed. The solution has always been the same: compromise.
+        </p>
+        <p>
+          The 878 Adaptive Limiter was built to end that compromise. By splitting the signal into four frequency bands — Sub (20–80 Hz), Low (80–500 Hz), Mid (500–8k Hz), and Hi (8k–20k Hz) — each band is limited independently. A transient in the low end stays in the low end. Your mids breathe freely. Your highs stay crisp.
+        </p>
+
+        <h2>Linear Phase Crossovers</h2>
+        <p>
+          Most multiband processors use minimum-phase crossovers because they're cheap to compute. The trade-off is phase smearing — different frequencies arrive at the output at slightly different times, blurring transients and creating subtle but audible artifacts, especially noticeable on stereo bus material.
+        </p>
+        <p>
+          Every crossover in the 878 Adaptive Limiter uses <strong>linear phase FIR filtering</strong>. All frequencies pass through with identical phase relationships. Your stereo image stays intact, transients hit with full punch, and the crossovers are inaudible — exactly as they should be.
+        </p>
+
+        <h2>Adaptive Thresholds</h2>
+        <p>
+          Most limiters give you a single ceiling and let you figure out the threshold. The Adaptive Limiter analyzes the short-term level of each band in real time and sets the limiting threshold relative to its content — so a bass-heavy mix and a high-mid forward mix are both handled intelligently without manual per-band dialing.
+        </p>
+        <p>
+          The result is a limiter that feels reactive and musical rather than mechanical. It catches peaks before they become distortion, while leaving the dynamic character of your mix largely untouched.
+        </p>
+
+        <h2>Harmonic Exciter</h2>
+        <p>
+          Limiting removes micro-dynamics. The Harmonic Exciter section is the antidote — a high-quality saturation stage with Drive (0–10) and Mix controls that introduce controlled even and odd harmonics back into the signal. At low Drive settings it adds subtle air and presence. Push it further and it becomes a creative tool: warm saturation, analog grit, or aggressive bite depending on where you take it.
+        </p>
+
+        <h2>Specifications</h2>
+        <table class="spec-table">
+          <tr><td>Plugin Format</td><td>VST3, AU, AAX (Mac &amp; Windows)</td></tr>
+          <tr><td>Oversampling</td><td>Up to 4x</td></tr>
+          <tr><td>Bands</td><td>4 (Sub, Low, Mid, Hi) — adjustable crossover points</td></tr>
+          <tr><td>Crossover Type</td><td>Linear Phase FIR</td></tr>
+          <tr><td>Ceiling</td><td>−6 dBTP to 0 dBTP (True Peak)</td></tr>
+          <tr><td>Lookahead</td><td>0–20 ms</td></tr>
+          <tr><td>Release</td><td>10 ms–1000 ms · Auto Release mode</td></tr>
+          <tr><td>Knee</td><td>0–6 dB</td></tr>
+          <tr><td>Exciter Drive</td><td>0.0–10.0</td></tr>
+          <tr><td>Metering</td><td>Per-band gain reduction, LUFS integrated, True Peak out</td></tr>
+          <tr><td>True Peak Presets</td><td>−1.0 dBTP, −0.3 dBTP</td></tr>
+          <tr><td>Punch Mode</td><td>Transient-aware limiting character</td></tr>
+          <tr><td>License</td><td>Single-user, unlimited installs</td></tr>
+        </table>
+
+        <h2>Release Timeline</h2>
+        <p>
+          The 878 Adaptive Limiter is currently in closed beta testing. We're working through edge cases on complex material — dense mixes, heavy low-end content, and live acoustic recordings — before a public release. Our target is a beta build available to early access signups, followed by a full commercial release.
+        </p>
+        <p>
+          Sign up below to be notified when early access opens. Beta testers will receive a discounted license and direct access to the team for feedback.
+        </p>
+
+      </div>
+
+      <hr class="section-rule" />
+
+      <!-- Notify CTA -->
+      <div class="notify-section">
+        <h2>Get Early Access</h2>
+        <p>Be the first to know when the beta opens. No spam — just the release notice.</p>
+        <div class="notify-input-row">
+          <input type="email" id="notifyEmail" placeholder="your@email.com" />
+          <button class="notify-btn" onclick="handleNotify()">Notify Me</button>
+        </div>
+        <p class="notify-confirm" id="notifyConfirm">✓ You're on the list — we'll reach out when the beta opens.</p>
+        <p style="font-size:0.72rem;color:rgba(148,163,184,0.3);margin-top:12px;">Contact: <a href="mailto:ambientact78@gmail.com" style="color:rgba(148,163,184,0.4);">ambientact78@gmail.com</a></p>
+      </div>
+
+    </main>
+
+    <footer class="footer">© 878 Records · Plugins</footer>
+  </div>
+</div>
+
+<script>
+  function handleNotify() {
+    const email = document.getElementById('notifyEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    // For now, show confirmation. To actually collect emails, connect to Firestore or a form service.
+    document.getElementById('notifyConfirm').classList.add('visible');
+    document.getElementById('notifyEmail').value = '';
+    document.getElementById('notifyEmail').disabled = true;
+    document.querySelector('.notify-btn').disabled = true;
+    document.querySelector('.notify-btn').style.opacity = '0.4';
+  }
+  document.getElementById('notifyEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleNotify();
+  });
+</script>
+</body>
+</html>

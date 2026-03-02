@@ -119,9 +119,10 @@
       <a class="nav-tab" href="index.html">Home</a>
       <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
       <a class="nav-tab" href="torok.html">Torok</a>
-      <a class="nav-tab" href="kdotz.html">KDOTZ</a>
+      <a class="nav-tab" href="vendetta.html">Vendetta</a>
       <a class="nav-tab" href="onkc-beats.html">ONKCBeats</a>
       <a class="nav-tab active" href="store.html">Store</a>
+      <a class="nav-tab" href="plugins.html">Plugins</a>
     </nav>
 
     <main class="content">
@@ -223,7 +224,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, query, where, orderBy, onSnapshot }
+  import { getFirestore, collection, query, where, onSnapshot }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   // ╔══════════════════════════════════════════════════════╗
@@ -309,17 +310,19 @@
     }).join('');
   }
 
-  const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'), orderBy('order','asc'));
-  const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'),        orderBy('order','asc'));
+  const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'));
+  const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'));
 
   onSnapshot(aaQ, snap => {
-    renderBeats(snap.docs.map(d => ({ id: d.id, ...d.data() })), 'aa-beats', 'Ambient Act');
+    const beats = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => (a.order||99)-(b.order||99));
+    renderBeats(beats, 'aa-beats', 'Ambient Act');
   }, () => {
     document.getElementById('aa-beats').innerHTML = '<div class="beat-empty">Configure Firebase to load beats.</div>';
   });
 
   onSnapshot(onkcQ, snap => {
-    renderBeats(snap.docs.map(d => ({ id: d.id, ...d.data() })), 'onkc-beats', 'ONKC Beats');
+    const beats2 = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => (a.order||99)-(b.order||99));
+    renderBeats(beats2, 'onkc-beats', 'ONKC Beats');
   }, () => {
     document.getElementById('onkc-beats').innerHTML = '<div class="beat-empty">Configure Firebase to load beats.</div>';
   });

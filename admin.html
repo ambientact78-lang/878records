@@ -6,200 +6,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ── Admin UI Layer ── */
     .admin-panel { display: none; }
     .admin-panel.visible { display: block; }
-
-    /* Login screen */
-    #loginScreen {
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 40px 0 20px;
-    }
+    #loginScreen { max-width: 420px; margin: 0 auto; padding: 40px 0 20px; }
     #loginScreen h2 { font-size: 1.5rem; margin-bottom: 6px; }
-    #loginScreen p { color: rgba(203,213,245,0.6); font-size: 0.88rem; margin-bottom: 28px; }
-
+    #loginScreen p.sub { color: rgba(203,213,245,0.6); font-size: 0.88rem; margin-bottom: 28px; }
     .form-field { margin-bottom: 14px; }
-    .form-field label { display: block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(203,213,245,0.7); margin-bottom: 6px; }
+    .form-field label { display: block; font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(203,213,245,0.65); margin-bottom: 5px; }
     .form-field input, .form-field select, .form-field textarea {
-      width: 100%;
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.25);
-      background: rgba(15,23,42,0.8);
-      color: #f9fafb;
-      font-size: 0.9rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
+      width: 100%; padding: 10px 13px; border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.22); background: rgba(15,23,42,0.85);
+      color: #f9fafb; font-size: 0.88rem; font-family: inherit; outline: none; transition: border-color 0.2s;
     }
-    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-      border-color: rgba(250,204,21,0.5);
-    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: rgba(250,204,21,0.5); }
     .form-field select option { background: #1e293b; }
-    .form-field textarea { resize: vertical; min-height: 80px; }
-
-    .btn-primary {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: rgba(250,204,21,0.18);
-      border: 1.5px solid rgba(250,204,21,0.6);
-      color: #facc15;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .btn-primary:hover { background: rgba(250,204,21,0.28); }
-    .btn-danger {
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(239,68,68,0.5);
-      background: rgba(239,68,68,0.1);
-      color: #f87171;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .btn-danger:hover { background: rgba(239,68,68,0.22); }
-    .btn-sm {
-      padding: 6px 14px;
-      border-radius: 8px;
-      border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.7);
-      color: #f9fafb;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .btn-sm:hover { border-color: rgba(250,204,21,0.4); }
-
-    .error-msg { color: #f87171; font-size: 0.82rem; margin-top: 8px; min-height: 20px; }
-
-    /* Admin header */
-    .admin-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 26px; flex-wrap: wrap; gap: 10px;
-    }
-    .admin-header h1 { font-size: 1.5rem; }
-    .admin-user { font-size: 0.78rem; color: rgba(203,213,245,0.5); }
-    .logout-btn {
-      background: none; border: 1px solid rgba(148,163,184,0.3);
-      border-radius: 8px; padding: 6px 14px; color: rgba(203,213,245,0.6);
-      font-size: 0.75rem; cursor: pointer; font-family: inherit;
-    }
-    .logout-btn:hover { color: #f9fafb; border-color: rgba(148,163,184,0.6); }
-
-    /* Tabs */
-    .admin-tabs {
-      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px;
-      border-bottom: 1px solid rgba(148,163,184,0.15); padding-bottom: 0;
-    }
-    .atab {
-      padding: 9px 18px;
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      color: rgba(203,213,245,0.5);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.05em;
-      margin-bottom: -1px;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .atab:hover { color: #f9fafb; }
-    .atab.active { color: #facc15; border-bottom-color: #facc15; }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* Beat cards in admin */
-    .admin-beat-card {
-      background: rgba(15,23,42,0.7);
-      border: 1px solid rgba(148,163,184,0.15);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: start;
-      margin-bottom: 8px;
-    }
-    .admin-beat-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
-    .admin-beat-meta { font-size: 0.75rem; color: rgba(203,213,245,0.55); }
-    .admin-beat-actions { display: flex; gap: 6px; align-items: center; }
-
-    /* Section divider */
-    .section-divider {
-      border: none;
-      border-top: 1px solid rgba(148,163,184,0.1);
-      margin: 22px 0;
-    }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
-
-    .upload-box {
-      background: rgba(15,23,42,0.6);
-      border: 1px solid rgba(148,163,184,0.12);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .upload-box h3 { font-size: 1rem; margin-bottom: 16px; color: #f9fafb; }
-
-    .success-flash {
-      background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.35);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 0.85rem;
-      color: #86efac;
-      margin-bottom: 14px;
-      display: none;
-    }
-    .success-flash.visible { display: block; }
-
-    /* Link editor rows */
-    .link-row {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .link-label { font-size: 0.78rem; color: rgba(203,213,245,0.6); letter-spacing: 0.08em; text-transform: uppercase; }
-
-    .info-box {
-      background: rgba(250,204,21,0.06);
-      border: 1px solid rgba(250,204,21,0.2);
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-size: 0.82rem;
-      color: rgba(226,232,240,0.8);
-      line-height: 1.6;
-      margin-bottom: 18px;
-    }
-    .info-box strong { color: #facc15; }
-    code {
-      background: rgba(15,23,42,0.8);
-      border: 1px solid rgba(148,163,184,0.2);
-      border-radius: 5px;
-      padding: 1px 6px;
-      font-size: 0.82rem;
-      color: #a5b4fc;
-    }
-
-    /* Drag handle hint */
-    .order-hint { font-size: 0.72rem; color: rgba(148,163,184,0.4); margin-top: 4px; }
+    .form-field textarea { resize: vertical; min-height: 72px; }
+    .field-hint { font-size: 0.7rem; color: rgba(148,163,184,0.4); margin-top: 3px; line-height: 1.4; }
+    .btn-primary { width:100%; padding:11px; border-radius:10px; cursor:pointer; font-family:inherit; background:rgba(250,204,21,0.16); border:1.5px solid rgba(250,204,21,0.6); color:#facc15; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; transition:background 0.15s; }
+    .btn-primary:hover { background:rgba(250,204,21,0.28); }
+    .btn-danger { padding:5px 11px; border-radius:8px; border:1px solid rgba(239,68,68,0.5); background:rgba(239,68,68,0.1); color:#f87171; font-size:0.72rem; cursor:pointer; font-family:inherit; }
+    .btn-danger:hover { background:rgba(239,68,68,0.22); }
+    .btn-sm { padding:5px 12px; border-radius:8px; border:1px solid rgba(148,163,184,0.28); background:rgba(15,23,42,0.7); color:rgba(203,213,245,0.8); font-size:0.72rem; cursor:pointer; font-family:inherit; }
+    .btn-sm:hover { border-color:rgba(250,204,21,0.4); }
+    .btn-save { padding:9px 22px; border-radius:10px; cursor:pointer; font-family:inherit; background:rgba(250,204,21,0.13); border:1.5px solid rgba(250,204,21,0.5); color:#facc15; font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; transition:background 0.15s; }
+    .btn-save:hover { background:rgba(250,204,21,0.25); }
+    .error-msg { color:#f87171; font-size:0.8rem; margin-top:8px; min-height:18px; }
+    .success-flash { background:rgba(34,197,94,0.11); border:1px solid rgba(34,197,94,0.32); border-radius:10px; padding:9px 14px; font-size:0.83rem; color:#86efac; margin-bottom:14px; display:none; }
+    .success-flash.visible { display:block; }
+    .admin-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:10px; }
+    .admin-header h1 { font-size:1.4rem; }
+    .admin-user { font-size:0.75rem; color:rgba(203,213,245,0.45); }
+    .logout-btn { background:none; border:1px solid rgba(148,163,184,0.28); border-radius:8px; padding:5px 12px; color:rgba(203,213,245,0.55); font-size:0.72rem; cursor:pointer; font-family:inherit; }
+    .logout-btn:hover { color:#f9fafb; }
+    .admin-tabs { display:flex; gap:2px; flex-wrap:wrap; margin-bottom:22px; border-bottom:1px solid rgba(148,163,184,0.12); overflow-x:auto; }
+    .atab { padding:8px 14px; background:none; border:none; border-bottom:2px solid transparent; color:rgba(203,213,245,0.45); font-size:0.78rem; font-weight:600; cursor:pointer; font-family:inherit; margin-bottom:-1px; transition:color 0.15s, border-color 0.15s; white-space:nowrap; }
+    .atab:hover { color:#f9fafb; }
+    .atab.active { color:#facc15; border-bottom-color:#facc15; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .sub-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+    .stab { padding:6px 13px; background:rgba(15,23,42,0.5); border:1px solid rgba(148,163,184,0.18); border-radius:999px; color:rgba(203,213,245,0.55); font-size:0.76rem; cursor:pointer; font-family:inherit; transition:all 0.15s; }
+    .stab:hover { border-color:rgba(250,204,21,0.35); color:#f9fafb; }
+    .stab.active { background:rgba(250,204,21,0.1); border-color:rgba(250,204,21,0.5); color:#facc15; }
+    .stab-panel { display:none; }
+    .stab-panel.active { display:block; }
+    .edit-box { background:rgba(15,23,42,0.55); border:1px solid rgba(148,163,184,0.11); border-radius:14px; padding:18px 18px 16px; margin-bottom:16px; }
+    .edit-box h3 { font-size:0.92rem; margin-bottom:14px; color:#f9fafb; }
+    .form-row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media(max-width:520px){.form-row2{grid-template-columns:1fr;}}
+    .divider { border:none; border-top:1px solid rgba(148,163,184,0.09); margin:18px 0; }
+    .beat-card { background:rgba(15,23,42,0.65); border:1px solid rgba(148,163,184,0.12); border-radius:11px; padding:11px 14px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; margin-bottom:7px; }
+    .beat-card-title { font-weight:600; font-size:0.86rem; margin-bottom:2px; }
+    .beat-card-meta { font-size:0.72rem; color:rgba(203,213,245,0.5); line-height:1.5; }
+    .beat-card-actions { display:flex; gap:5px; flex-shrink:0; }
+    .link-row { display:grid; grid-template-columns:120px 1fr; gap:8px; align-items:center; margin-bottom:9px; }
+    .link-lbl { font-size:0.72rem; color:rgba(203,213,245,0.5); letter-spacing:0.06em; text-transform:uppercase; }
+    .info-box { background:rgba(250,204,21,0.05); border:1px solid rgba(250,204,21,0.18); border-radius:10px; padding:12px 14px; font-size:0.8rem; color:rgba(226,232,240,0.75); line-height:1.65; margin-bottom:14px; }
+    .info-box strong { color:#facc15; }
+    code { background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.18); border-radius:4px; padding:1px 5px; font-size:0.78rem; color:#a5b4fc; }
   </style>
 </head>
 <body>
@@ -210,28 +74,17 @@
       <div class="site-subtitle">Admin Portal</div>
     </header>
 
-    <!-- ─── LOGIN SCREEN ─────────────────────────────────────── -->
     <div id="loginScreen">
       <h2>Sign In</h2>
-      <p>Access the 878 Records admin portal with your email.</p>
-      <div class="form-field">
-        <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email" />
-      </div>
-      <div class="form-field">
-        <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
-      </div>
+      <p class="sub">Access the 878 Records admin portal with your email.</p>
+      <div class="form-field"><label>Email</label><input type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email" /></div>
+      <div class="form-field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" /></div>
       <button class="btn-primary" onclick="doLogin()">Sign In</button>
       <p class="error-msg" id="loginError"></p>
-      <p style="margin-top:18px; font-size:0.78rem; color:rgba(148,163,184,0.4); text-align:center;">
-        <a href="store.html" style="color:rgba(148,163,184,0.4);">← Back to Store</a>
-      </p>
+      <p style="margin-top:18px;font-size:0.75rem;color:rgba(148,163,184,0.35);text-align:center;"><a href="store.html" style="color:rgba(148,163,184,0.35);">← Back to Store</a></p>
     </div>
 
-    <!-- ─── ADMIN PANEL ───────────────────────────────────────── -->
     <div id="adminPanel" class="admin-panel">
-
       <div class="admin-header">
         <h1>Admin Portal</h1>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -240,215 +93,281 @@
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="admin-tabs">
         <button class="atab active" onclick="switchTab('beats',this)">🎵 Beats</button>
-        <button class="atab" onclick="switchTab('landing',this)">🏠 Landing Page</button>
+        <button class="atab" onclick="switchTab('home',this)">🏠 Home</button>
+        <button class="atab" onclick="switchTab('artists',this)">👤 Artists</button>
+        <button class="atab" onclick="switchTab('storepg',this)">🛍 Store</button>
         <button class="atab" onclick="switchTab('links',this)">🔗 Links</button>
-        <button class="atab" onclick="switchTab('settings',this)">⚙️ Settings</button>
+        <button class="atab" onclick="switchTab('setup',this)">⚙️ Setup</button>
       </div>
 
-      <!-- ─── TAB: BEATS ─── -->
+      <!-- BEATS -->
       <div class="tab-panel active" id="tab-beats">
-        <div class="success-flash" id="beatSuccess">✓ Beat saved successfully!</div>
-
-        <!-- Add Beat Form -->
-        <div class="upload-box">
+        <div class="success-flash" id="beatSuccess">✓ Beat saved!</div>
+        <div class="edit-box">
           <h3 id="beatFormTitle">+ Add New Beat</h3>
-          <input type="hidden" id="editBeatId" value="" />
-
-          <div class="form-row">
-            <div class="form-field">
-              <label>Title *</label>
-              <input type="text" id="beatTitle" placeholder="e.g. Midnight Drive" />
-            </div>
-            <div class="form-field">
-              <label>Artist *</label>
-              <select id="beatArtist">
-                <option value="ambient-act">Ambient Act</option>
-                <option value="onkc">ONKC Beats</option>
-              </select>
+          <input type="hidden" id="editBeatId" />
+          <div class="form-row2">
+            <div class="form-field"><label>Title *</label><input type="text" id="beatTitle" placeholder="e.g. Midnight Drive" /></div>
+            <div class="form-field"><label>Artist *</label>
+              <select id="beatArtist"><option value="ambient-act">Ambient Act</option><option value="onkc">ONKC Beats</option></select>
             </div>
           </div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label>BPM</label>
-              <input type="number" id="beatBpm" placeholder="e.g. 90" min="40" max="300" />
-            </div>
-            <div class="form-field">
-              <label>Key</label>
-              <input type="text" id="beatKey" placeholder="e.g. C Minor" />
-            </div>
+          <div class="form-row2">
+            <div class="form-field"><label>BPM</label><input type="number" id="beatBpm" placeholder="90" min="40" max="300" /></div>
+            <div class="form-field"><label>Key</label><input type="text" id="beatKey" placeholder="e.g. C Minor" /></div>
           </div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label>Genre / Vibe</label>
-              <input type="text" id="beatGenre" placeholder="e.g. Trap, R&B, Lo-Fi" />
-            </div>
-            <div class="form-field">
-              <label>Price (optional)</label>
-              <input type="text" id="beatPrice" placeholder="e.g. 29.99" />
-            </div>
+          <div class="form-row2">
+            <div class="form-field"><label>Genre / Vibe</label><input type="text" id="beatGenre" placeholder="Trap, R&B, Lo-Fi…" /></div>
+            <div class="form-field"><label>Price</label><input type="text" id="beatPrice" placeholder="29.99" /></div>
           </div>
-
           <div class="form-field">
-            <label>Audio URL (MP3 link or SoundCloud direct)</label>
+            <label>Audio URL (direct .mp3 link)</label>
             <input type="url" id="beatAudioUrl" placeholder="https://…/beat.mp3" />
+            <p class="field-hint">Firebase Storage, GitHub raw, Google Drive direct, or Dropbox raw link all work</p>
           </div>
-
-          <div class="form-field">
-            <label>Gumroad Link (buy link — add after uploading to Gumroad)</label>
-            <input type="url" id="beatGumroad" placeholder="https://gumroad.com/l/…" />
-          </div>
-
-          <div class="form-field">
-            <label>Display Order (lower = first)</label>
-            <input type="number" id="beatOrder" placeholder="e.g. 1" value="99" min="0" />
-          </div>
-
-          <div style="display:flex;gap:10px;margin-top:6px;">
+          <div class="form-field"><label>Gumroad Buy Link</label><input type="url" id="beatGumroad" placeholder="https://gumroad.com/l/…" /></div>
+          <div class="form-field"><label>Display Order (lower number = first in list)</label><input type="number" id="beatOrder" value="99" min="0" /></div>
+          <div style="display:flex;gap:10px;margin-top:8px;">
             <button class="btn-primary" style="flex:1;" onclick="saveBeat()">Save Beat</button>
             <button class="btn-sm" onclick="clearBeatForm()">Cancel</button>
           </div>
         </div>
-
-        <!-- Ambient Act Beats List -->
-        <h3 style="font-size:0.9rem;color:rgba(203,213,245,0.7);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">
-          Ambient Act Beats
-        </h3>
-        <div id="adminAaBeats"><p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">Loading…</p></div>
-
-        <hr class="section-divider" />
-
-        <h3 style="font-size:0.9rem;color:rgba(203,213,245,0.7);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">
-          ONKC Beats
-        </h3>
-        <div id="adminOnkcBeats"><p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">Loading…</p></div>
+        <p style="font-size:0.74rem;color:rgba(203,213,245,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px;">Ambient Act Beats</p>
+        <div id="adminAaBeats"><p style="color:rgba(148,163,184,0.35);font-size:0.82rem;padding:6px 0;">Loading…</p></div>
+        <hr class="divider"/>
+        <p style="font-size:0.74rem;color:rgba(203,213,245,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px;">ONKC Beats</p>
+        <div id="adminOnkcBeats"><p style="color:rgba(148,163,184,0.35);font-size:0.82rem;padding:6px 0;">Loading…</p></div>
       </div>
 
-      <!-- ─── TAB: LANDING PAGE ─── -->
-      <div class="tab-panel" id="tab-landing">
-        <div class="info-box">
-          Edit the text and featured video for the <strong>Home page</strong>. Changes here update a shared config in Firebase — you'll need to add a small script to <code>index.html</code> to pull them, OR just use this panel as a reference and update index.html manually.
-          <br/><br/>
-          <strong>Quickest path:</strong> use the fields below to draft your edits, then copy-paste into index.html.
+      <!-- HOME -->
+      <div class="tab-panel" id="tab-home">
+        <div class="success-flash" id="homeSuccess">✓ Home page updated!</div>
+        <div class="info-box">These fields update live on <strong>index.html</strong> via Firebase — the page already reads them on every visit.</div>
+        <div class="edit-box">
+          <h3>Featured Video Banner</h3>
+          <div class="form-field"><label>Section Tag</label><input type="text" id="featVideoTag" placeholder="New Visual Release" /></div>
+          <div class="form-field"><label>Video Title</label><input type="text" id="featVideoTitle" placeholder="Vendetta — Dark Reflection" /></div>
+          <div class="form-field">
+            <label>YouTube URL</label>
+            <input type="url" id="featVideoUrl" placeholder="https://www.youtube.com/watch?v=…" />
+            <p class="field-hint">Paste a regular YouTube watch URL or embed URL — both work automatically</p>
+          </div>
+          <div class="form-field"><label>Description</label><textarea id="featVideoDesc" rows="4"></textarea></div>
         </div>
-
-        <div class="success-flash" id="landingSuccess">✓ Landing config saved!</div>
-
-        <div class="upload-box">
-          <h3>Featured Video</h3>
-          <div class="form-field">
-            <label>Section Tag (e.g. "New Visual Release")</label>
-            <input type="text" id="featVideoTag" placeholder="New Visual Release" />
-          </div>
-          <div class="form-field">
-            <label>Video Title</label>
-            <input type="text" id="featVideoTitle" placeholder="KDOTZ — Dark Reflection" />
-          </div>
-          <div class="form-field">
-            <label>YouTube Embed URL</label>
-            <input type="url" id="featVideoUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID" />
-          </div>
-          <div class="form-field">
-            <label>Description</label>
-            <textarea id="featVideoDesc" rows="4" placeholder="Describe the release…"></textarea>
-          </div>
-        </div>
-
-        <div class="upload-box">
+        <div class="edit-box">
           <h3>Featured Track Banner</h3>
-          <div class="form-field">
-            <label>Banner Tag</label>
-            <input type="text" id="bannerTag" placeholder="Pre-Purchase Our Upcoming Track!" />
-          </div>
-          <div class="form-field">
-            <label>Track Title</label>
-            <input type="text" id="bannerTitle" placeholder='"Come Up" · Ambient Act x ONKCBeats' />
-          </div>
-          <div class="form-field">
-            <label>Description</label>
-            <textarea id="bannerDesc" rows="3" placeholder="Describe the track…"></textarea>
-          </div>
-          <div class="form-field">
-            <label>Button Label</label>
-            <input type="text" id="bannerBtnLabel" placeholder="Exclusive Access" />
-          </div>
-          <div class="form-field">
-            <label>Button URL</label>
-            <input type="url" id="bannerBtnUrl" placeholder="https://…" />
+          <div class="form-field"><label>Banner Tag</label><input type="text" id="bannerTag" placeholder="Pre-Purchase Our Upcoming Track!" /></div>
+          <div class="form-field"><label>Track Title</label><input type="text" id="bannerTitle" /></div>
+          <div class="form-field"><label>Description</label><textarea id="bannerDesc" rows="3"></textarea></div>
+          <div class="form-row2">
+            <div class="form-field"><label>Button Label</label><input type="text" id="bannerBtnLabel" placeholder="Exclusive Access" /></div>
+            <div class="form-field"><label>Button URL</label><input type="url" id="bannerBtnUrl" placeholder="https://…" /></div>
           </div>
         </div>
-
-        <button class="btn-primary" style="max-width:300px;" onclick="saveLanding()">Save Landing Config</button>
-        <p style="margin-top:10px;font-size:0.78rem;color:rgba(148,163,184,0.4);">
-          After saving, copy the values into index.html to publish them live.
-        </p>
+        <div class="edit-box">
+          <h3>Spotify Player &amp; Album Section</h3>
+          <div class="form-field">
+            <label>Spotify Embed URL</label>
+            <input type="url" id="homeSpotifyEmbed" placeholder="https://open.spotify.com/embed/album/…" />
+            <p class="field-hint">Right-click album in Spotify → Share → Embed → copy the src URL from the iframe code</p>
+          </div>
+          <div class="form-field"><label>Album Name Tag (label above player)</label><input type="text" id="homeAlbumTag" placeholder="Senioritis" /></div>
+          <div class="form-field"><label>Headline (e.g. "Now Streaming!")</label><input type="text" id="homeStreamHeadline" placeholder="Now Streaming!" /></div>
+          <div class="form-field"><label>Album Description</label><textarea id="homeAlbumDesc" rows="3"></textarea></div>
+        </div>
+        <button class="btn-save" onclick="saveHome()">Save Home Page</button>
       </div>
 
-      <!-- ─── TAB: LINKS ─── -->
+      <!-- ARTISTS -->
+      <div class="tab-panel" id="tab-artists">
+        <div class="success-flash" id="artistSuccess">✓ Artist page saved!</div>
+        <div class="info-box">All fields save to Firebase. Each artist page will read these automatically once the Firebase loader script is added to each HTML file.</div>
+        <div class="sub-tabs">
+          <button class="stab active" onclick="switchStab('aa',this)">Ambient Act</button>
+          <button class="stab" onclick="switchStab('onkc',this)">ONKC Beats</button>
+          <button class="stab" onclick="switchStab('vendetta',this)">Vendetta</button>
+          <button class="stab" onclick="switchStab('torok',this)">Torok</button>
+        </div>
+
+        <div class="stab-panel active" id="stab-aa">
+          <div class="edit-box">
+            <h3>Ambient Act — Profile</h3>
+            <div class="form-field"><label>Tagline</label><input type="text" id="aa_tagline" /></div>
+            <div class="form-field"><label>Photo URL / Filename</label><input type="text" id="aa_photo" placeholder="ambient-act-logo.png" /><p class="field-hint">Filename if in same folder, or full https:// URL</p></div>
+            <div class="form-field"><label>Bio — Paragraph 1</label><textarea id="aa_bio1" rows="3"></textarea></div>
+            <div class="form-field"><label>Bio — Paragraph 2</label><textarea id="aa_bio2" rows="3"></textarea></div>
+            <div class="form-field"><label>Spotify Embed URL</label><input type="url" id="aa_spotifyEmbed" placeholder="https://open.spotify.com/embed/album/…" /></div>
+            <div class="form-field"><label>Featured Tracks (one per line: Title – description)</label><textarea id="aa_tracks" rows="5"></textarea></div>
+            <div class="form-field"><label>Highlights (one per line)</label><textarea id="aa_highlights" rows="4"></textarea></div>
+            <div class="form-field"><label>Booking Email</label><input type="email" id="aa_email" /></div>
+          </div>
+          <div class="edit-box">
+            <h3>Albums &amp; Projects</h3>
+            <div class="form-row2"><div class="form-field"><label>Album 1 Title</label><input type="text" id="aa_alb1title" /></div><div class="form-field"><label>Album 1 Meta</label><input type="text" id="aa_alb1meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Album 2 Title</label><input type="text" id="aa_alb2title" /></div><div class="form-field"><label>Album 2 Meta</label><input type="text" id="aa_alb2meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Album 3 Title</label><input type="text" id="aa_alb3title" /></div><div class="form-field"><label>Album 3 Meta</label><input type="text" id="aa_alb3meta" /></div></div>
+          </div>
+          <button class="btn-save" onclick="saveArtist('aa')">Save Ambient Act</button>
+        </div>
+
+        <div class="stab-panel" id="stab-onkc">
+          <div class="edit-box">
+            <h3>ONKC Beats — Profile</h3>
+            <div class="form-field"><label>Tagline</label><input type="text" id="onkc_tagline" /></div>
+            <div class="form-field"><label>Photo URL / Filename</label><input type="text" id="onkc_photo" placeholder="ONKC.png" /></div>
+            <div class="form-field"><label>Bio — Paragraph 1</label><textarea id="onkc_bio1" rows="3"></textarea></div>
+            <div class="form-field"><label>Bio — Paragraph 2</label><textarea id="onkc_bio2" rows="3"></textarea></div>
+            <div class="form-field"><label>Featured Packs (one per line: Name – description)</label><textarea id="onkc_tracks" rows="4"></textarea></div>
+            <div class="form-field"><label>Highlights (one per line)</label><textarea id="onkc_highlights" rows="3"></textarea></div>
+            <div class="form-field"><label>Contact Email</label><input type="email" id="onkc_email" /></div>
+          </div>
+          <button class="btn-save" onclick="saveArtist('onkc')">Save ONKC Beats</button>
+        </div>
+
+        <div class="stab-panel" id="stab-vendetta">
+          <div class="edit-box">
+            <h3>Vendetta — Profile</h3>
+            <div class="form-field"><label>Tagline</label><input type="text" id="vendetta_tagline" /></div>
+            <div class="form-field"><label>Photo URL / Filename</label><input type="text" id="vendetta_photo" placeholder="IMG_2742.jpeg" /></div>
+            <div class="form-field"><label>Bio — Paragraph 1</label><textarea id="vendetta_bio1" rows="3"></textarea></div>
+            <div class="form-field"><label>Bio — Paragraph 2</label><textarea id="vendetta_bio2" rows="3"></textarea></div>
+            <div class="form-field"><label>Bio — Paragraph 3</label><textarea id="vendetta_bio3" rows="3"></textarea></div>
+            <div class="form-field"><label>Featured Tracks (one per line)</label><textarea id="vendetta_tracks" rows="4"></textarea></div>
+            <div class="form-field"><label>Highlights (one per line)</label><textarea id="vendetta_highlights" rows="3"></textarea></div>
+            <div class="form-field"><label>Contact Email</label><input type="email" id="vendetta_email" /></div>
+          </div>
+          <div class="edit-box">
+            <h3>Albums &amp; Projects</h3>
+            <div class="form-row2"><div class="form-field"><label>Project 1 Title</label><input type="text" id="vendetta_alb1title" /></div><div class="form-field"><label>Project 1 Meta</label><input type="text" id="vendetta_alb1meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Project 2 Title</label><input type="text" id="vendetta_alb2title" /></div><div class="form-field"><label>Project 2 Meta</label><input type="text" id="vendetta_alb2meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Project 3 Title</label><input type="text" id="vendetta_alb3title" /></div><div class="form-field"><label>Project 3 Meta</label><input type="text" id="vendetta_alb3meta" /></div></div>
+          </div>
+          <button class="btn-save" onclick="saveArtist('vendetta')">Save Vendetta</button>
+        </div>
+
+        <div class="stab-panel" id="stab-torok">
+          <div class="edit-box">
+            <h3>Torok — Profile</h3>
+            <div class="form-field"><label>Tagline</label><input type="text" id="torok_tagline" /></div>
+            <div class="form-field"><label>Photo URL / Filename</label><input type="text" id="torok_photo" placeholder="torok.png" /></div>
+            <div class="form-field"><label>Bio — Paragraph 1</label><textarea id="torok_bio1" rows="3"></textarea></div>
+            <div class="form-field"><label>Bio — Paragraph 2</label><textarea id="torok_bio2" rows="3"></textarea></div>
+            <div class="form-field"><label>Featured Tracks (one per line)</label><textarea id="torok_tracks" rows="4"></textarea></div>
+            <div class="form-field"><label>Highlights (one per line)</label><textarea id="torok_highlights" rows="3"></textarea></div>
+            <div class="form-field"><label>Contact Email</label><input type="email" id="torok_email" /></div>
+          </div>
+          <div class="edit-box">
+            <h3>Albums &amp; Projects</h3>
+            <div class="form-row2"><div class="form-field"><label>Project 1 Title</label><input type="text" id="torok_alb1title" /></div><div class="form-field"><label>Project 1 Meta</label><input type="text" id="torok_alb1meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Project 2 Title</label><input type="text" id="torok_alb2title" /></div><div class="form-field"><label>Project 2 Meta</label><input type="text" id="torok_alb2meta" /></div></div>
+            <div class="form-row2"><div class="form-field"><label>Project 3 Title</label><input type="text" id="torok_alb3title" /></div><div class="form-field"><label>Project 3 Meta</label><input type="text" id="torok_alb3meta" /></div></div>
+          </div>
+          <button class="btn-save" onclick="saveArtist('torok')">Save Torok</button>
+        </div>
+      </div>
+
+      <!-- STORE -->
+      <div class="tab-panel" id="tab-storepg">
+        <div class="success-flash" id="storeSuccess">✓ Store page saved!</div>
+        <div class="info-box">Saved to Firebase. The store.html page will read these values dynamically once its Firebase loader is added.</div>
+        <div class="edit-box">
+          <h3>Service Card</h3>
+          <div class="form-field"><label>Service Title</label><input type="text" id="svc_title" /></div>
+          <div class="form-field"><label>Steps / Description</label><textarea id="svc_desc" rows="3"></textarea></div>
+          <div class="form-row2">
+            <div class="form-field"><label>Price</label><input type="text" id="svc_price" /></div>
+            <div class="form-field"><label>Stripe Buy URL</label><input type="url" id="svc_url" /></div>
+          </div>
+        </div>
+        <div class="edit-box">
+          <h3>Album / Single 1</h3>
+          <div class="form-field"><label>Title</label><input type="text" id="alb1_title" /></div>
+          <div class="form-field"><label>Meta Description</label><textarea id="alb1_meta" rows="2"></textarea></div>
+          <div class="form-row2">
+            <div class="form-field"><label>Price</label><input type="text" id="alb1_price" /></div>
+            <div class="form-field"><label>Stripe Buy URL</label><input type="url" id="alb1_url" /></div>
+          </div>
+        </div>
+        <div class="edit-box">
+          <h3>Album / Single 2</h3>
+          <div class="form-field"><label>Title</label><input type="text" id="alb2_title" /></div>
+          <div class="form-field"><label>Meta Description</label><textarea id="alb2_meta" rows="2"></textarea></div>
+          <div class="form-row2">
+            <div class="form-field"><label>Price</label><input type="text" id="alb2_price" /></div>
+            <div class="form-field"><label>Stripe Buy URL</label><input type="url" id="alb2_url" /></div>
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveStore()">Save Store Page</button>
+      </div>
+
+      <!-- LINKS -->
       <div class="tab-panel" id="tab-links">
-        <div class="info-box">
-          Update streaming links and social URLs for each artist. These are saved in Firebase for reference, and shown below for easy copy-pasting into the artist HTML pages.
-        </div>
-
         <div class="success-flash" id="linksSuccess">✓ Links saved!</div>
-
-        <div class="upload-box">
+        <div class="info-box">Saved to Firebase — artist pages will pull these automatically once the Firebase loader is added to each page.</div>
+        <div class="edit-box">
           <h3>Ambient Act</h3>
-          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="aa-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
-          <div class="link-row"><span class="link-label">Apple Music</span><input class="link-input" type="url" id="aa-apple" placeholder="https://music.apple.com/…" /></div>
-          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="aa-soundcloud" placeholder="https://soundcloud.com/…" /></div>
-          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="aa-youtube" placeholder="https://youtube.com/…" /></div>
-          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="aa-instagram" placeholder="https://instagram.com/…" /></div>
-          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="aa-email" placeholder="ambientact78@gmail.com" /></div>
+          <div class="link-row"><span class="link-lbl">Spotify</span><input type="url" id="aa-spotify" /></div>
+          <div class="link-row"><span class="link-lbl">Apple Music</span><input type="url" id="aa-apple" /></div>
+          <div class="link-row"><span class="link-lbl">SoundCloud</span><input type="url" id="aa-soundcloud" /></div>
+          <div class="link-row"><span class="link-lbl">YouTube</span><input type="url" id="aa-youtube" /></div>
+          <div class="link-row"><span class="link-lbl">Instagram</span><input type="url" id="aa-instagram" /></div>
+          <div class="link-row"><span class="link-lbl">Email</span><input type="email" id="aa-email" /></div>
         </div>
-
-        <div class="upload-box">
+        <div class="edit-box">
           <h3>ONKC Beats</h3>
-          <div class="link-row"><span class="link-label">Beat Store</span><input class="link-input" type="url" id="onkc-beatstore" placeholder="https://…" /></div>
-          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="onkc-soundcloud" placeholder="https://soundcloud.com/…" /></div>
-          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="onkc-youtube" placeholder="https://youtube.com/…" /></div>
-          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="onkc-instagram" placeholder="https://instagram.com/…" /></div>
-          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="onkc-email" placeholder="booking@email.com" /></div>
+          <div class="link-row"><span class="link-lbl">Beat Store</span><input type="url" id="onkc-beatstore" /></div>
+          <div class="link-row"><span class="link-lbl">SoundCloud</span><input type="url" id="onkc-soundcloud" /></div>
+          <div class="link-row"><span class="link-lbl">YouTube</span><input type="url" id="onkc-youtube" /></div>
+          <div class="link-row"><span class="link-lbl">Instagram</span><input type="url" id="onkc-instagram" /></div>
+          <div class="link-row"><span class="link-lbl">Email</span><input type="email" id="onkc-email" /></div>
         </div>
-
-        <div class="upload-box">
-          <h3>KDOTZ</h3>
-          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="kdotz-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
-          <div class="link-row"><span class="link-label">Apple Music</span><input class="link-input" type="url" id="kdotz-apple" placeholder="https://music.apple.com/…" /></div>
-          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="kdotz-youtube" placeholder="https://youtube.com/@Kdotz" /></div>
-          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="kdotz-instagram" placeholder="https://instagram.com/…" /></div>
-          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="kdotz-email" placeholder="booking@email.com" /></div>
+        <div class="edit-box">
+          <h3>Vendetta</h3>
+          <div class="link-row"><span class="link-lbl">Spotify</span><input type="url" id="vendetta-spotify" /></div>
+          <div class="link-row"><span class="link-lbl">Apple Music</span><input type="url" id="vendetta-apple" /></div>
+          <div class="link-row"><span class="link-lbl">YouTube</span><input type="url" id="vendetta-youtube" /></div>
+          <div class="link-row"><span class="link-lbl">Instagram</span><input type="url" id="vendetta-instagram" /></div>
+          <div class="link-row"><span class="link-lbl">Email</span><input type="email" id="vendetta-email" /></div>
         </div>
-
-        <div class="upload-box">
+        <div class="edit-box">
           <h3>Torok</h3>
-          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="torok-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
-          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="torok-soundcloud" placeholder="https://soundcloud.com/…" /></div>
-          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="torok-instagram" placeholder="https://instagram.com/…" /></div>
-          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="torok-email" placeholder="booking@email.com" /></div>
+          <div class="link-row"><span class="link-lbl">Spotify</span><input type="url" id="torok-spotify" /></div>
+          <div class="link-row"><span class="link-lbl">SoundCloud</span><input type="url" id="torok-soundcloud" /></div>
+          <div class="link-row"><span class="link-lbl">Instagram</span><input type="url" id="torok-instagram" /></div>
+          <div class="link-row"><span class="link-lbl">Email</span><input type="email" id="torok-email" /></div>
         </div>
-
-        <button class="btn-primary" style="max-width:300px;" onclick="saveLinks()">Save All Links</button>
+        <button class="btn-save" onclick="saveLinks()">Save All Links</button>
       </div>
 
-      <!-- ─── TAB: SETTINGS ─── -->
-      <div class="tab-panel" id="tab-settings">
-        <div class="upload-box">
-          <h3>Firebase Setup Guide</h3>
+      <!-- SETUP -->
+      <div class="tab-panel" id="tab-setup">
+        <div class="edit-box">
+          <h3>🔴 Beats Not Showing on Store Page?</h3>
           <div class="info-box" style="margin-bottom:0;">
-            <strong>Step 1</strong> — Go to <a href="https://console.firebase.google.com" target="_blank" style="color:#a5b4fc;">console.firebase.google.com</a> and create a free project.<br/><br/>
-            <strong>Step 2</strong> — Enable <strong>Authentication</strong> → Email/Password sign-in.<br/><br/>
-            <strong>Step 3</strong> — Create your admin account under Authentication → Users → Add user.<br/><br/>
-            <strong>Step 4</strong> — Enable <strong>Firestore Database</strong> (start in test mode, then add rules).<br/><br/>
-            <strong>Step 5</strong> — Go to Project Settings → Your Apps → Add Web App. Copy the config object and paste it into both <code>store.html</code> and <code>admin.html</code> where it says <code>REPLACE_…</code>.<br/><br/>
-            <strong>Step 6</strong> — In Firestore, create a collection called <code>beats</code>. Each beat document should have: <code>title, artist, bpm, key, genre, price, audioUrl, gumroadUrl, order</code>.<br/><br/>
-            <strong>Recommended Firestore Rules:</strong><br/>
-            <code style="display:block;margin-top:8px;white-space:pre;font-size:0.75rem;line-height:1.7;">
-rules_version = '2';
+            <strong>Root cause:</strong> Firestore's <code>where + orderBy</code> on different fields requires a composite index.<br/><br/>
+            <strong>Fix (Option 1 — Already done):</strong> The updated <code>store.html</code> now sorts beats client-side, so no index is needed. Just upload the new store.html.<br/><br/>
+            <strong>Fix (Option 2 — Create the index):</strong><br/>
+            1. Open browser Console (F12) on the store page<br/>
+            2. Find the Firebase error — it has a direct link to create the index<br/>
+            3. Click that link in Firebase Console → click "Create Index"<br/>
+            4. Wait ~60 seconds, reload store page
+          </div>
+        </div>
+        <div class="edit-box">
+          <h3>Free Audio Hosting</h3>
+          <div class="info-box" style="margin-bottom:0;">
+            • <strong>Firebase Storage</strong> (recommended) — Free 5GB. Console → Storage → Upload file → copy Download URL<br/>
+            • <strong>GitHub</strong> — Push MP3 to repo → use <code>raw.githubusercontent.com/USER/REPO/main/file.mp3</code><br/>
+            • <strong>Google Drive</strong> — Upload → Share → use <a href="https://sites.google.com/site/gdocs2direct/" target="_blank" style="color:#a5b4fc;">gdocs2direct.com</a> to convert to direct link<br/>
+            • <strong>Dropbox</strong> — Share link → change <code>dl=0</code> to <code>raw=1</code>
+          </div>
+        </div>
+        <div class="edit-box">
+          <h3>Firestore Security Rules</h3>
+          <div class="info-box" style="margin-bottom:0;">
+            <code style="display:block;white-space:pre;font-size:0.74rem;line-height:1.8;">rules_version = '2';
 service cloud.firestore {
   match /databases/{db}/documents {
     match /beats/{id} {
@@ -462,38 +381,21 @@ service cloud.firestore {
 }</code>
           </div>
         </div>
-
-        <div class="upload-box">
-          <h3>Audio Hosting (Free Options)</h3>
-          <div class="info-box" style="margin-bottom:0;">
-            Since Firebase Storage has a free 5GB limit, you can host your beat previews there, or use these free alternatives:<br/><br/>
-            • <strong>Google Drive</strong> — Upload MP3, get a direct link (use a converter like <a href="https://sites.google.com/site/gdocs2direct/" target="_blank" style="color:#a5b4fc;">gdocs2direct</a>)<br/>
-            • <strong>Dropbox</strong> — Share link, change <code>?dl=0</code> to <code>?dl=1</code> for direct play<br/>
-            • <strong>SoundCloud</strong> — Embed player URL from SoundCloud<br/>
-            • <strong>GitHub</strong> — Host MP3 files in a repo, use raw GitHub URL<br/><br/>
-            Paste the direct MP3 URL into the <strong>Audio URL</strong> field when adding a beat.
-          </div>
-        </div>
       </div>
 
-    </div><!-- /adminPanel -->
+    </div>
 
     <footer class="footer" style="margin-top:32px;">© 878 Records · Admin</footer>
   </div>
 </div>
 
-<!-- Firebase -->
 <script type="module">
-  import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc,
-           query, where, orderBy, onSnapshot, getDoc }
+  import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc, query, where, onSnapshot, getDoc }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  // ╔══════════════════════════════════════════════════════╗
-  // ║  PASTE YOUR FIREBASE CONFIG HERE                    ║
-  // ╚══════════════════════════════════════════════════════╝
   const firebaseConfig = {
     apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
     authDomain:        "records-website-2f8fe.firebaseapp.com",
@@ -507,221 +409,174 @@ service cloud.firestore {
   const auth = getAuth(app);
   const db   = getFirestore(app);
 
-  // ── Auth ────────────────────────────────────────────────
   onAuthStateChanged(auth, user => {
     if (user) {
-      document.getElementById('loginScreen').style.display  = 'none';
+      document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminPanel').classList.add('visible');
       document.getElementById('adminUserEmail').textContent = user.email;
-      loadBeats();
-      loadLinks();
-      loadLanding();
+      loadBeats(); loadHome(); loadArtists(); loadStore(); loadLinks();
     } else {
-      document.getElementById('loginScreen').style.display  = 'block';
+      document.getElementById('loginScreen').style.display = 'block';
       document.getElementById('adminPanel').classList.remove('visible');
     }
   });
 
-  window.doLogin = async function() {
-    const email    = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    const errEl    = document.getElementById('loginError');
-    errEl.textContent = '';
-    if (!email || !password) { errEl.textContent = 'Enter email and password.'; return; }
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch(e) {
-      errEl.textContent = 'Sign-in failed: ' + (e.code === 'auth/invalid-credential' ? 'Wrong email or password.' : e.message);
-    }
+  window.doLogin = async () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+    const err   = document.getElementById('loginError');
+    err.textContent = '';
+    if (!email || !pass) { err.textContent = 'Enter email and password.'; return; }
+    try { await signInWithEmailAndPassword(auth, email, pass); }
+    catch(e) { err.textContent = e.code==='auth/invalid-credential'?'Wrong email or password.':e.message; }
   };
-
   window.doLogout = () => signOut(auth);
+  document.getElementById('loginPassword').addEventListener('keydown', e => { if(e.key==='Enter') window.doLogin(); });
 
-  // Enter key on password field
-  document.getElementById('loginPassword').addEventListener('keydown', e => {
-    if (e.key === 'Enter') window.doLogin();
-  });
-
-  // ── Tabs ────────────────────────────────────────────────
-  window.switchTab = function(name, btn) {
+  window.switchTab = (name, btn) => {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.atab').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
+    document.getElementById('tab-'+name).classList.add('active');
+    btn.classList.add('active');
+  };
+  window.switchStab = (name, btn) => {
+    document.querySelectorAll('.stab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+    document.getElementById('stab-'+name).classList.add('active');
     btn.classList.add('active');
   };
 
-  // ── Beats ───────────────────────────────────────────────
+  function flash(id) { const el=document.getElementById(id); if(!el) return; el.classList.add('visible'); setTimeout(()=>el.classList.remove('visible'),3500); }
+  const g = id => document.getElementById(id)?.value?.trim()||'';
+  const s = (id,val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+
+  // BEATS — no orderBy to avoid composite index requirement; sort client-side
   function loadBeats() {
-    const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'), orderBy('order','asc'));
-    const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'),        orderBy('order','asc'));
-    onSnapshot(aaQ,   snap => renderAdminBeats(snap.docs.map(d => ({id:d.id,...d.data()})), 'adminAaBeats'));
-    onSnapshot(onkcQ, snap => renderAdminBeats(snap.docs.map(d => ({id:d.id,...d.data()})), 'adminOnkcBeats'));
+    const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'));
+    const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'));
+    onSnapshot(aaQ,   snap => renderBeats(snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||99)-(b.order||99)), 'adminAaBeats'));
+    onSnapshot(onkcQ, snap => renderBeats(snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.order||99)-(b.order||99)), 'adminOnkcBeats'));
   }
 
-  function renderAdminBeats(beats, containerId) {
-    const el = document.getElementById(containerId);
+  function renderBeats(beats, cid) {
+    const el = document.getElementById(cid);
     if (!el) return;
-    if (beats.length === 0) {
-      el.innerHTML = '<p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">No beats yet.</p>';
-      return;
-    }
-    el.innerHTML = beats.map(b => `
-      <div class="admin-beat-card">
+    if (!beats.length) { el.innerHTML='<p style="color:rgba(148,163,184,0.35);font-size:0.82rem;padding:4px 0;">No beats yet.</p>'; return; }
+    el.innerHTML = beats.map(b=>`
+      <div class="beat-card">
         <div>
-          <div class="admin-beat-title">${b.title}</div>
-          <div class="admin-beat-meta">
-            ${b.bpm ? b.bpm + ' BPM' : ''} ${b.key ? '· ' + b.key : ''} ${b.genre ? '· ' + b.genre : ''}
-            ${b.price ? '· $' + b.price : ''}
-            ${b.gumroadUrl ? '<br/><span style="color:#6ee7b7;">✓ Gumroad linked</span>' : '<br/><span style="color:rgba(148,163,184,0.35);">No Gumroad link yet</span>'}
-            ${b.audioUrl ? '<br/><span style="color:#a5b4fc;">✓ Audio URL set</span>' : ''}
+          <div class="beat-card-title">${b.title}</div>
+          <div class="beat-card-meta">
+            ${[b.bpm?b.bpm+' BPM':'',b.key||'',b.genre||'',b.price?'$'+b.price:''].filter(Boolean).join(' · ')}
+            ${b.gumroadUrl?' · <span style="color:#6ee7b7;">✓ Gumroad</span>':' · <span style="color:rgba(148,163,184,0.25);">No Gumroad</span>'}
+            ${b.audioUrl?' · <span style="color:#a5b4fc;">✓ Audio</span>':''}
           </div>
         </div>
-        <div class="admin-beat-actions">
+        <div class="beat-card-actions">
           <button class="btn-sm" onclick="editBeat('${b.id}')">Edit</button>
-          <button class="btn-danger" onclick="deleteBeat('${b.id}','${b.title.replace(/'/g,"\\'")}')">Delete</button>
+          <button class="btn-danger" onclick="deleteBeat('${b.id}','${b.title.replace(/'/g,"\\'")}')">Del</button>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 
-  window.clearBeatForm = function() {
-    ['beatTitle','beatBpm','beatKey','beatGenre','beatPrice','beatAudioUrl','beatGumroad'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('beatOrder').value = '99';
-    document.getElementById('beatArtist').value = 'ambient-act';
-    document.getElementById('editBeatId').value = '';
-    document.getElementById('beatFormTitle').textContent = '+ Add New Beat';
+  window.clearBeatForm = () => {
+    ['beatTitle','beatBpm','beatKey','beatGenre','beatPrice','beatAudioUrl','beatGumroad'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('beatOrder').value='99';
+    document.getElementById('beatArtist').value='ambient-act';
+    document.getElementById('editBeatId').value='';
+    document.getElementById('beatFormTitle').textContent='+ Add New Beat';
   };
 
-  window.editBeat = async function(beatId) {
-    const snap = await getDoc(doc(db,'beats',beatId));
-    if (!snap.exists()) return;
-    const b = snap.data();
-    document.getElementById('editBeatId').value   = beatId;
-    document.getElementById('beatTitle').value    = b.title   || '';
-    document.getElementById('beatArtist').value   = b.artist  || 'ambient-act';
-    document.getElementById('beatBpm').value      = b.bpm     || '';
-    document.getElementById('beatKey').value      = b.key     || '';
-    document.getElementById('beatGenre').value    = b.genre   || '';
-    document.getElementById('beatPrice').value    = b.price   || '';
-    document.getElementById('beatAudioUrl').value = b.audioUrl   || '';
-    document.getElementById('beatGumroad').value  = b.gumroadUrl || '';
-    document.getElementById('beatOrder').value    = b.order !== undefined ? b.order : 99;
-    document.getElementById('beatFormTitle').textContent = 'Edit Beat';
-    document.getElementById('tab-beats').scrollTop = 0;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.editBeat = async id => {
+    const snap=await getDoc(doc(db,'beats',id));
+    if(!snap.exists()) return;
+    const b=snap.data();
+    s('editBeatId',id); s('beatTitle',b.title); s('beatArtist',b.artist);
+    s('beatBpm',b.bpm); s('beatKey',b.key); s('beatGenre',b.genre);
+    s('beatPrice',b.price); s('beatAudioUrl',b.audioUrl); s('beatGumroad',b.gumroadUrl);
+    document.getElementById('beatOrder').value=b.order!==undefined?b.order:99;
+    document.getElementById('beatFormTitle').textContent='Edit Beat';
+    window.scrollTo({top:0,behavior:'smooth'});
   };
 
-  window.saveBeat = async function() {
-    const title = document.getElementById('beatTitle').value.trim();
-    if (!title) { alert('Beat title is required.'); return; }
-    const beatData = {
-      title,
-      artist:     document.getElementById('beatArtist').value,
-      bpm:        document.getElementById('beatBpm').value.trim(),
-      key:        document.getElementById('beatKey').value.trim(),
-      genre:      document.getElementById('beatGenre').value.trim(),
-      price:      document.getElementById('beatPrice').value.trim(),
-      audioUrl:   document.getElementById('beatAudioUrl').value.trim(),
-      gumroadUrl: document.getElementById('beatGumroad').value.trim(),
-      order:      parseInt(document.getElementById('beatOrder').value) || 99,
-      updatedAt:  new Date().toISOString()
-    };
+  window.saveBeat = async () => {
+    const title=g('beatTitle'); if(!title){alert('Beat title is required.');return;}
+    const data={title,artist:g('beatArtist'),bpm:g('beatBpm'),key:g('beatKey'),genre:g('beatGenre'),
+      price:g('beatPrice'),audioUrl:g('beatAudioUrl'),gumroadUrl:g('beatGumroad'),
+      order:parseInt(document.getElementById('beatOrder').value)||99,updatedAt:new Date().toISOString()};
     try {
-      const editId = document.getElementById('editBeatId').value;
-      if (editId) {
-        await setDoc(doc(db,'beats',editId), beatData, { merge: true });
-      } else {
-        beatData.createdAt = new Date().toISOString();
-        await addDoc(collection(db,'beats'), beatData);
-      }
-      window.clearBeatForm();
-      const flash = document.getElementById('beatSuccess');
-      flash.classList.add('visible');
-      setTimeout(() => flash.classList.remove('visible'), 3000);
-    } catch(e) { alert('Error saving beat: ' + e.message); }
+      const eid=g('editBeatId');
+      if(eid){await setDoc(doc(db,'beats',eid),data,{merge:true});}
+      else{data.createdAt=new Date().toISOString();await addDoc(collection(db,'beats'),data);}
+      window.clearBeatForm(); flash('beatSuccess');
+    } catch(e){alert('Error: '+e.message);}
   };
 
-  window.deleteBeat = async function(beatId, title) {
-    if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
-    try {
-      await deleteDoc(doc(db,'beats',beatId));
-    } catch(e) { alert('Error: ' + e.message); }
+  window.deleteBeat = async (id,title) => {
+    if(!confirm('Delete "'+title+'"?')) return;
+    try{await deleteDoc(doc(db,'beats',id));}catch(e){alert('Error: '+e.message);}
   };
 
-  // ── Landing Page ─────────────────────────────────────────
-  async function loadLanding() {
+  // HOME
+  async function loadHome() {
     try {
-      const snap = await getDoc(doc(db,'siteConfig','landing'));
-      if (!snap.exists()) return;
-      const d = snap.data();
-      const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
-      set('featVideoTag',   d.featVideoTag);
-      set('featVideoTitle', d.featVideoTitle);
-      set('featVideoUrl',   d.featVideoUrl);
-      set('featVideoDesc',  d.featVideoDesc);
-      set('bannerTag',      d.bannerTag);
-      set('bannerTitle',    d.bannerTitle);
-      set('bannerDesc',     d.bannerDesc);
-      set('bannerBtnLabel', d.bannerBtnLabel);
-      set('bannerBtnUrl',   d.bannerBtnUrl);
-    } catch(e) {}
+      const snap=await getDoc(doc(db,'siteConfig','landing')); if(!snap.exists()) return;
+      const d=snap.data();
+      ['featVideoTag','featVideoTitle','featVideoUrl','featVideoDesc','bannerTag','bannerTitle',
+       'bannerDesc','bannerBtnLabel','bannerBtnUrl','homeSpotifyEmbed','homeAlbumTag','homeStreamHeadline','homeAlbumDesc'].forEach(id=>s(id,d[id]));
+    } catch(e){}
   }
-
-  window.saveLanding = async function() {
-    const get = id => document.getElementById(id)?.value?.trim() || '';
-    try {
-      await setDoc(doc(db,'siteConfig','landing'), {
-        featVideoTag:   get('featVideoTag'),
-        featVideoTitle: get('featVideoTitle'),
-        featVideoUrl:   get('featVideoUrl'),
-        featVideoDesc:  get('featVideoDesc'),
-        bannerTag:      get('bannerTag'),
-        bannerTitle:    get('bannerTitle'),
-        bannerDesc:     get('bannerDesc'),
-        bannerBtnLabel: get('bannerBtnLabel'),
-        bannerBtnUrl:   get('bannerBtnUrl'),
-        updatedAt:      new Date().toISOString()
-      });
-      const flash = document.getElementById('landingSuccess');
-      flash.classList.add('visible');
-      setTimeout(() => flash.classList.remove('visible'), 3000);
-    } catch(e) { alert('Error: ' + e.message); }
+  window.saveHome = async () => {
+    const ids=['featVideoTag','featVideoTitle','featVideoUrl','featVideoDesc','bannerTag','bannerTitle',
+               'bannerDesc','bannerBtnLabel','bannerBtnUrl','homeSpotifyEmbed','homeAlbumTag','homeStreamHeadline','homeAlbumDesc'];
+    const data={updatedAt:new Date().toISOString()};
+    ids.forEach(id=>{const v=g(id);if(v)data[id]=v;});
+    try{await setDoc(doc(db,'siteConfig','landing'),data,{merge:true});flash('homeSuccess');}
+    catch(e){alert('Error: '+e.message);}
   };
 
-  // ── Links ────────────────────────────────────────────────
+  // ARTISTS
+  const AF={
+    aa:      ['tagline','photo','bio1','bio2','spotifyEmbed','tracks','highlights','email','alb1title','alb1meta','alb2title','alb2meta','alb3title','alb3meta'],
+    onkc:    ['tagline','photo','bio1','bio2','tracks','highlights','email'],
+    vendetta:['tagline','photo','bio1','bio2','bio3','tracks','highlights','email','alb1title','alb1meta','alb2title','alb2meta','alb3title','alb3meta'],
+    torok:   ['tagline','photo','bio1','bio2','tracks','highlights','email','alb1title','alb1meta','alb2title','alb2meta','alb3title','alb3meta'],
+  };
+  async function loadArtists() {
+    for(const a of Object.keys(AF)){
+      try{const snap=await getDoc(doc(db,'artistPages',a));if(!snap.exists())continue;const d=snap.data();AF[a].forEach(f=>s(a+'_'+f,d[f]));}catch(e){}
+    }
+  }
+  window.saveArtist = async a => {
+    const data={updatedAt:new Date().toISOString()};
+    AF[a].forEach(f=>{const v=g(a+'_'+f);if(v)data[f]=v;});
+    try{await setDoc(doc(db,'artistPages',a),data,{merge:true});flash('artistSuccess');}
+    catch(e){alert('Error: '+e.message);}
+  };
+
+  // STORE
+  async function loadStore() {
+    try{const snap=await getDoc(doc(db,'siteConfig','store'));if(!snap.exists())return;const d=snap.data();
+      ['svc_title','svc_desc','svc_price','svc_url','alb1_title','alb1_meta','alb1_price','alb1_url','alb2_title','alb2_meta','alb2_price','alb2_url'].forEach(id=>s(id,d[id]));
+    }catch(e){}
+  }
+  window.saveStore = async () => {
+    const ids=['svc_title','svc_desc','svc_price','svc_url','alb1_title','alb1_meta','alb1_price','alb1_url','alb2_title','alb2_meta','alb2_price','alb2_url'];
+    const data={updatedAt:new Date().toISOString()};ids.forEach(id=>{const v=g(id);if(v)data[id]=v;});
+    try{await setDoc(doc(db,'siteConfig','store'),data,{merge:true});flash('storeSuccess');}catch(e){alert('Error: '+e.message);}
+  };
+
+  // LINKS
   async function loadLinks() {
-    try {
-      const snap = await getDoc(doc(db,'siteConfig','links'));
-      if (!snap.exists()) return;
-      const d = snap.data();
-      Object.entries(d).forEach(([k,v]) => {
-        const el = document.getElementById(k);
-        if (el && v) el.value = v;
-      });
-    } catch(e) {}
+    try{const snap=await getDoc(doc(db,'siteConfig','links'));if(!snap.exists())return;const d=snap.data();Object.entries(d).forEach(([k,v])=>s(k,v));}catch(e){}
   }
-
-  window.saveLinks = async function() {
-    const linkIds = [
-      'aa-spotify','aa-apple','aa-soundcloud','aa-youtube','aa-instagram','aa-email',
-      'onkc-beatstore','onkc-soundcloud','onkc-youtube','onkc-instagram','onkc-email',
-      'kdotz-spotify','kdotz-apple','kdotz-youtube','kdotz-instagram','kdotz-email',
-      'torok-spotify','torok-soundcloud','torok-instagram','torok-email'
-    ];
-    const data = {};
-    linkIds.forEach(id => {
-      const v = document.getElementById(id)?.value?.trim();
-      if (v) data[id] = v;
-    });
-    data.updatedAt = new Date().toISOString();
-    try {
-      await setDoc(doc(db,'siteConfig','links'), data, { merge: true });
-      const flash = document.getElementById('linksSuccess');
-      flash.classList.add('visible');
-      setTimeout(() => flash.classList.remove('visible'), 3000);
-    } catch(e) { alert('Error: ' + e.message); }
+  window.saveLinks = async () => {
+    const ids=['aa-spotify','aa-apple','aa-soundcloud','aa-youtube','aa-instagram','aa-email',
+               'onkc-beatstore','onkc-soundcloud','onkc-youtube','onkc-instagram','onkc-email',
+               'vendetta-spotify','vendetta-apple','vendetta-youtube','vendetta-instagram','vendetta-email',
+               'torok-spotify','torok-soundcloud','torok-instagram','torok-email'];
+    const data={updatedAt:new Date().toISOString()};ids.forEach(id=>{const v=g(id);if(v)data[id]=v;});
+    try{await setDoc(doc(db,'siteConfig','links'),data,{merge:true});flash('linksSuccess');}catch(e){alert('Error: '+e.message);}
   };
 </script>
 </body>
