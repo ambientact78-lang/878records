@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin · 878 Records</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Admin UI Layer ── */
+    .admin-panel { display: none; }
+    .admin-panel.visible { display: block; }
+
+    /* Login screen */
+    #loginScreen {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 40px 0 20px;
+    }
+    #loginScreen h2 { font-size: 1.5rem; margin-bottom: 6px; }
+    #loginScreen p { color: rgba(203,213,245,0.6); font-size: 0.88rem; margin-bottom: 28px; }
+
+    .form-field { margin-bottom: 14px; }
+    .form-field label { display: block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(203,213,245,0.7); margin-bottom: 6px; }
+    .form-field input, .form-field select, .form-field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.25);
+      background: rgba(15,23,42,0.8);
+      color: #f9fafb;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+      border-color: rgba(250,204,21,0.5);
+    }
+    .form-field select option { background: #1e293b; }
+    .form-field textarea { resize: vertical; min-height: 80px; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(250,204,21,0.18);
+      border: 1.5px solid rgba(250,204,21,0.6);
+      color: #facc15;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: rgba(250,204,21,0.28); }
+    .btn-danger {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(239,68,68,0.5);
+      background: rgba(239,68,68,0.1);
+      color: #f87171;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .btn-danger:hover { background: rgba(239,68,68,0.22); }
+    .btn-sm {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(15,23,42,0.7);
+      color: #f9fafb;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-sm:hover { border-color: rgba(250,204,21,0.4); }
+
+    .error-msg { color: #f87171; font-size: 0.82rem; margin-top: 8px; min-height: 20px; }
+
+    /* Admin header */
+    .admin-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 26px; flex-wrap: wrap; gap: 10px;
+    }
+    .admin-header h1 { font-size: 1.5rem; }
+    .admin-user { font-size: 0.78rem; color: rgba(203,213,245,0.5); }
+    .logout-btn {
+      background: none; border: 1px solid rgba(148,163,184,0.3);
+      border-radius: 8px; padding: 6px 14px; color: rgba(203,213,245,0.6);
+      font-size: 0.75rem; cursor: pointer; font-family: inherit;
+    }
+    .logout-btn:hover { color: #f9fafb; border-color: rgba(148,163,184,0.6); }
+
+    /* Tabs */
+    .admin-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px;
+      border-bottom: 1px solid rgba(148,163,184,0.15); padding-bottom: 0;
+    }
+    .atab {
+      padding: 9px 18px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(203,213,245,0.5);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .atab:hover { color: #f9fafb; }
+    .atab.active { color: #facc15; border-bottom-color: #facc15; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Beat cards in admin */
+    .admin-beat-card {
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+    .admin-beat-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+    .admin-beat-meta { font-size: 0.75rem; color: rgba(203,213,245,0.55); }
+    .admin-beat-actions { display: flex; gap: 6px; align-items: center; }
+
+    /* Section divider */
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(148,163,184,0.1);
+      margin: 22px 0;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .upload-box {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(148,163,184,0.12);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .upload-box h3 { font-size: 1rem; margin-bottom: 16px; color: #f9fafb; }
+
+    .success-flash {
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.35);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #86efac;
+      margin-bottom: 14px;
+      display: none;
+    }
+    .success-flash.visible { display: block; }
+
+    /* Link editor rows */
+    .link-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .link-label { font-size: 0.78rem; color: rgba(203,213,245,0.6); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .info-box {
+      background: rgba(250,204,21,0.06);
+      border: 1px solid rgba(250,204,21,0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: rgba(226,232,240,0.8);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .info-box strong { color: #facc15; }
+    code {
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 5px;
+      padding: 1px 6px;
+      font-size: 0.82rem;
+      color: #a5b4fc;
+    }
+
+    /* Drag handle hint */
+    .order-hint { font-size: 0.72rem; color: rgba(148,163,184,0.4); margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="main-card">
+    <header>
+      <div class="site-title">878 Records</div>
+      <div class="site-subtitle">Admin Portal</div>
+    </header>
+
+    <!-- ─── LOGIN SCREEN ─────────────────────────────────────── -->
+    <div id="loginScreen">
+      <h2>Sign In</h2>
+      <p>Access the 878 Records admin portal with your email.</p>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email" />
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Sign In</button>
+      <p class="error-msg" id="loginError"></p>
+      <p style="margin-top:18px; font-size:0.78rem; color:rgba(148,163,184,0.4); text-align:center;">
+        <a href="store.html" style="color:rgba(148,163,184,0.4);">← Back to Store</a>
+      </p>
+    </div>
+
+    <!-- ─── ADMIN PANEL ───────────────────────────────────────── -->
+    <div id="adminPanel" class="admin-panel">
+
+      <div class="admin-header">
+        <h1>Admin Portal</h1>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="admin-user" id="adminUserEmail"></span>
+          <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="admin-tabs">
+        <button class="atab active" onclick="switchTab('beats',this)">🎵 Beats</button>
+        <button class="atab" onclick="switchTab('landing',this)">🏠 Landing Page</button>
+        <button class="atab" onclick="switchTab('links',this)">🔗 Links</button>
+        <button class="atab" onclick="switchTab('settings',this)">⚙️ Settings</button>
+      </div>
+
+      <!-- ─── TAB: BEATS ─── -->
+      <div class="tab-panel active" id="tab-beats">
+        <div class="success-flash" id="beatSuccess">✓ Beat saved successfully!</div>
+
+        <!-- Add Beat Form -->
+        <div class="upload-box">
+          <h3 id="beatFormTitle">+ Add New Beat</h3>
+          <input type="hidden" id="editBeatId" value="" />
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Title *</label>
+              <input type="text" id="beatTitle" placeholder="e.g. Midnight Drive" />
+            </div>
+            <div class="form-field">
+              <label>Artist *</label>
+              <select id="beatArtist">
+                <option value="ambient-act">Ambient Act</option>
+                <option value="onkc">ONKC Beats</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>BPM</label>
+              <input type="number" id="beatBpm" placeholder="e.g. 90" min="40" max="300" />
+            </div>
+            <div class="form-field">
+              <label>Key</label>
+              <input type="text" id="beatKey" placeholder="e.g. C Minor" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Genre / Vibe</label>
+              <input type="text" id="beatGenre" placeholder="e.g. Trap, R&B, Lo-Fi" />
+            </div>
+            <div class="form-field">
+              <label>Price (optional)</label>
+              <input type="text" id="beatPrice" placeholder="e.g. 29.99" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Audio URL (MP3 link or SoundCloud direct)</label>
+            <input type="url" id="beatAudioUrl" placeholder="https://…/beat.mp3" />
+          </div>
+
+          <div class="form-field">
+            <label>Gumroad Link (buy link — add after uploading to Gumroad)</label>
+            <input type="url" id="beatGumroad" placeholder="https://gumroad.com/l/…" />
+          </div>
+
+          <div class="form-field">
+            <label>Display Order (lower = first)</label>
+            <input type="number" id="beatOrder" placeholder="e.g. 1" value="99" min="0" />
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button class="btn-primary" style="flex:1;" onclick="saveBeat()">Save Beat</button>
+            <button class="btn-sm" onclick="clearBeatForm()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Ambient Act Beats List -->
+        <h3 style="font-size:0.9rem;color:rgba(203,213,245,0.7);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">
+          Ambient Act Beats
+        </h3>
+        <div id="adminAaBeats"><p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">Loading…</p></div>
+
+        <hr class="section-divider" />
+
+        <h3 style="font-size:0.9rem;color:rgba(203,213,245,0.7);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">
+          ONKC Beats
+        </h3>
+        <div id="adminOnkcBeats"><p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">Loading…</p></div>
+      </div>
+
+      <!-- ─── TAB: LANDING PAGE ─── -->
+      <div class="tab-panel" id="tab-landing">
+        <div class="info-box">
+          Edit the text and featured video for the <strong>Home page</strong>. Changes here update a shared config in Firebase — you'll need to add a small script to <code>index.html</code> to pull them, OR just use this panel as a reference and update index.html manually.
+          <br/><br/>
+          <strong>Quickest path:</strong> use the fields below to draft your edits, then copy-paste into index.html.
+        </div>
+
+        <div class="success-flash" id="landingSuccess">✓ Landing config saved!</div>
+
+        <div class="upload-box">
+          <h3>Featured Video</h3>
+          <div class="form-field">
+            <label>Section Tag (e.g. "New Visual Release")</label>
+            <input type="text" id="featVideoTag" placeholder="New Visual Release" />
+          </div>
+          <div class="form-field">
+            <label>Video Title</label>
+            <input type="text" id="featVideoTitle" placeholder="KDOTZ — Dark Reflection" />
+          </div>
+          <div class="form-field">
+            <label>YouTube Embed URL</label>
+            <input type="url" id="featVideoUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID" />
+          </div>
+          <div class="form-field">
+            <label>Description</label>
+            <textarea id="featVideoDesc" rows="4" placeholder="Describe the release…"></textarea>
+          </div>
+        </div>
+
+        <div class="upload-box">
+          <h3>Featured Track Banner</h3>
+          <div class="form-field">
+            <label>Banner Tag</label>
+            <input type="text" id="bannerTag" placeholder="Pre-Purchase Our Upcoming Track!" />
+          </div>
+          <div class="form-field">
+            <label>Track Title</label>
+            <input type="text" id="bannerTitle" placeholder='"Come Up" · Ambient Act x ONKCBeats' />
+          </div>
+          <div class="form-field">
+            <label>Description</label>
+            <textarea id="bannerDesc" rows="3" placeholder="Describe the track…"></textarea>
+          </div>
+          <div class="form-field">
+            <label>Button Label</label>
+            <input type="text" id="bannerBtnLabel" placeholder="Exclusive Access" />
+          </div>
+          <div class="form-field">
+            <label>Button URL</label>
+            <input type="url" id="bannerBtnUrl" placeholder="https://…" />
+          </div>
+        </div>
+
+        <button class="btn-primary" style="max-width:300px;" onclick="saveLanding()">Save Landing Config</button>
+        <p style="margin-top:10px;font-size:0.78rem;color:rgba(148,163,184,0.4);">
+          After saving, copy the values into index.html to publish them live.
+        </p>
+      </div>
+
+      <!-- ─── TAB: LINKS ─── -->
+      <div class="tab-panel" id="tab-links">
+        <div class="info-box">
+          Update streaming links and social URLs for each artist. These are saved in Firebase for reference, and shown below for easy copy-pasting into the artist HTML pages.
+        </div>
+
+        <div class="success-flash" id="linksSuccess">✓ Links saved!</div>
+
+        <div class="upload-box">
+          <h3>Ambient Act</h3>
+          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="aa-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
+          <div class="link-row"><span class="link-label">Apple Music</span><input class="link-input" type="url" id="aa-apple" placeholder="https://music.apple.com/…" /></div>
+          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="aa-soundcloud" placeholder="https://soundcloud.com/…" /></div>
+          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="aa-youtube" placeholder="https://youtube.com/…" /></div>
+          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="aa-instagram" placeholder="https://instagram.com/…" /></div>
+          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="aa-email" placeholder="ambientact78@gmail.com" /></div>
+        </div>
+
+        <div class="upload-box">
+          <h3>ONKC Beats</h3>
+          <div class="link-row"><span class="link-label">Beat Store</span><input class="link-input" type="url" id="onkc-beatstore" placeholder="https://…" /></div>
+          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="onkc-soundcloud" placeholder="https://soundcloud.com/…" /></div>
+          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="onkc-youtube" placeholder="https://youtube.com/…" /></div>
+          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="onkc-instagram" placeholder="https://instagram.com/…" /></div>
+          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="onkc-email" placeholder="booking@email.com" /></div>
+        </div>
+
+        <div class="upload-box">
+          <h3>KDOTZ</h3>
+          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="kdotz-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
+          <div class="link-row"><span class="link-label">Apple Music</span><input class="link-input" type="url" id="kdotz-apple" placeholder="https://music.apple.com/…" /></div>
+          <div class="link-row"><span class="link-label">YouTube</span><input class="link-input" type="url" id="kdotz-youtube" placeholder="https://youtube.com/@Kdotz" /></div>
+          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="kdotz-instagram" placeholder="https://instagram.com/…" /></div>
+          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="kdotz-email" placeholder="booking@email.com" /></div>
+        </div>
+
+        <div class="upload-box">
+          <h3>Torok</h3>
+          <div class="link-row"><span class="link-label">Spotify</span><input class="link-input" type="url" id="torok-spotify" placeholder="https://open.spotify.com/artist/…" /></div>
+          <div class="link-row"><span class="link-label">SoundCloud</span><input class="link-input" type="url" id="torok-soundcloud" placeholder="https://soundcloud.com/…" /></div>
+          <div class="link-row"><span class="link-label">Instagram</span><input class="link-input" type="url" id="torok-instagram" placeholder="https://instagram.com/…" /></div>
+          <div class="link-row"><span class="link-label">Email</span><input class="link-input" type="email" id="torok-email" placeholder="booking@email.com" /></div>
+        </div>
+
+        <button class="btn-primary" style="max-width:300px;" onclick="saveLinks()">Save All Links</button>
+      </div>
+
+      <!-- ─── TAB: SETTINGS ─── -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="upload-box">
+          <h3>Firebase Setup Guide</h3>
+          <div class="info-box" style="margin-bottom:0;">
+            <strong>Step 1</strong> — Go to <a href="https://console.firebase.google.com" target="_blank" style="color:#a5b4fc;">console.firebase.google.com</a> and create a free project.<br/><br/>
+            <strong>Step 2</strong> — Enable <strong>Authentication</strong> → Email/Password sign-in.<br/><br/>
+            <strong>Step 3</strong> — Create your admin account under Authentication → Users → Add user.<br/><br/>
+            <strong>Step 4</strong> — Enable <strong>Firestore Database</strong> (start in test mode, then add rules).<br/><br/>
+            <strong>Step 5</strong> — Go to Project Settings → Your Apps → Add Web App. Copy the config object and paste it into both <code>store.html</code> and <code>admin.html</code> where it says <code>REPLACE_…</code>.<br/><br/>
+            <strong>Step 6</strong> — In Firestore, create a collection called <code>beats</code>. Each beat document should have: <code>title, artist, bpm, key, genre, price, audioUrl, gumroadUrl, order</code>.<br/><br/>
+            <strong>Recommended Firestore Rules:</strong><br/>
+            <code style="display:block;margin-top:8px;white-space:pre;font-size:0.75rem;line-height:1.7;">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    match /beats/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /{doc=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}</code>
+          </div>
+        </div>
+
+        <div class="upload-box">
+          <h3>Audio Hosting (Free Options)</h3>
+          <div class="info-box" style="margin-bottom:0;">
+            Since Firebase Storage has a free 5GB limit, you can host your beat previews there, or use these free alternatives:<br/><br/>
+            • <strong>Google Drive</strong> — Upload MP3, get a direct link (use a converter like <a href="https://sites.google.com/site/gdocs2direct/" target="_blank" style="color:#a5b4fc;">gdocs2direct</a>)<br/>
+            • <strong>Dropbox</strong> — Share link, change <code>?dl=0</code> to <code>?dl=1</code> for direct play<br/>
+            • <strong>SoundCloud</strong> — Embed player URL from SoundCloud<br/>
+            • <strong>GitHub</strong> — Host MP3 files in a repo, use raw GitHub URL<br/><br/>
+            Paste the direct MP3 URL into the <strong>Audio URL</strong> field when adding a beat.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /adminPanel -->
+
+    <footer class="footer" style="margin-top:32px;">© 878 Records · Admin</footer>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc,
+           query, where, orderBy, onSnapshot, getDoc }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ╔══════════════════════════════════════════════════════╗
+  // ║  PASTE YOUR FIREBASE CONFIG HERE                    ║
+  // ╚══════════════════════════════════════════════════════╝
+  const firebaseConfig = {
+    apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
+    authDomain:        "records-website-2f8fe.firebaseapp.com",
+    projectId:         "records-website-2f8fe",
+    storageBucket:     "records-website-2f8fe.firebasestorage.app",
+    messagingSenderId: "456307633504",
+    appId:             "1:456307633504:web:b78fbb00d0bd1e87750205"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // ── Auth ────────────────────────────────────────────────
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      document.getElementById('loginScreen').style.display  = 'none';
+      document.getElementById('adminPanel').classList.add('visible');
+      document.getElementById('adminUserEmail').textContent = user.email;
+      loadBeats();
+      loadLinks();
+      loadLanding();
+    } else {
+      document.getElementById('loginScreen').style.display  = 'block';
+      document.getElementById('adminPanel').classList.remove('visible');
+    }
+  });
+
+  window.doLogin = async function() {
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const errEl    = document.getElementById('loginError');
+    errEl.textContent = '';
+    if (!email || !password) { errEl.textContent = 'Enter email and password.'; return; }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch(e) {
+      errEl.textContent = 'Sign-in failed: ' + (e.code === 'auth/invalid-credential' ? 'Wrong email or password.' : e.message);
+    }
+  };
+
+  window.doLogout = () => signOut(auth);
+
+  // Enter key on password field
+  document.getElementById('loginPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') window.doLogin();
+  });
+
+  // ── Tabs ────────────────────────────────────────────────
+  window.switchTab = function(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.atab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  // ── Beats ───────────────────────────────────────────────
+  function loadBeats() {
+    const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'), orderBy('order','asc'));
+    const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'),        orderBy('order','asc'));
+    onSnapshot(aaQ,   snap => renderAdminBeats(snap.docs.map(d => ({id:d.id,...d.data()})), 'adminAaBeats'));
+    onSnapshot(onkcQ, snap => renderAdminBeats(snap.docs.map(d => ({id:d.id,...d.data()})), 'adminOnkcBeats'));
+  }
+
+  function renderAdminBeats(beats, containerId) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    if (beats.length === 0) {
+      el.innerHTML = '<p style="color:rgba(148,163,184,0.4);font-size:0.85rem;">No beats yet.</p>';
+      return;
+    }
+    el.innerHTML = beats.map(b => `
+      <div class="admin-beat-card">
+        <div>
+          <div class="admin-beat-title">${b.title}</div>
+          <div class="admin-beat-meta">
+            ${b.bpm ? b.bpm + ' BPM' : ''} ${b.key ? '· ' + b.key : ''} ${b.genre ? '· ' + b.genre : ''}
+            ${b.price ? '· $' + b.price : ''}
+            ${b.gumroadUrl ? '<br/><span style="color:#6ee7b7;">✓ Gumroad linked</span>' : '<br/><span style="color:rgba(148,163,184,0.35);">No Gumroad link yet</span>'}
+            ${b.audioUrl ? '<br/><span style="color:#a5b4fc;">✓ Audio URL set</span>' : ''}
+          </div>
+        </div>
+        <div class="admin-beat-actions">
+          <button class="btn-sm" onclick="editBeat('${b.id}')">Edit</button>
+          <button class="btn-danger" onclick="deleteBeat('${b.id}','${b.title.replace(/'/g,"\\'")}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.clearBeatForm = function() {
+    ['beatTitle','beatBpm','beatKey','beatGenre','beatPrice','beatAudioUrl','beatGumroad'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('beatOrder').value = '99';
+    document.getElementById('beatArtist').value = 'ambient-act';
+    document.getElementById('editBeatId').value = '';
+    document.getElementById('beatFormTitle').textContent = '+ Add New Beat';
+  };
+
+  window.editBeat = async function(beatId) {
+    const snap = await getDoc(doc(db,'beats',beatId));
+    if (!snap.exists()) return;
+    const b = snap.data();
+    document.getElementById('editBeatId').value   = beatId;
+    document.getElementById('beatTitle').value    = b.title   || '';
+    document.getElementById('beatArtist').value   = b.artist  || 'ambient-act';
+    document.getElementById('beatBpm').value      = b.bpm     || '';
+    document.getElementById('beatKey').value      = b.key     || '';
+    document.getElementById('beatGenre').value    = b.genre   || '';
+    document.getElementById('beatPrice').value    = b.price   || '';
+    document.getElementById('beatAudioUrl').value = b.audioUrl   || '';
+    document.getElementById('beatGumroad').value  = b.gumroadUrl || '';
+    document.getElementById('beatOrder').value    = b.order !== undefined ? b.order : 99;
+    document.getElementById('beatFormTitle').textContent = 'Edit Beat';
+    document.getElementById('tab-beats').scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.saveBeat = async function() {
+    const title = document.getElementById('beatTitle').value.trim();
+    if (!title) { alert('Beat title is required.'); return; }
+    const beatData = {
+      title,
+      artist:     document.getElementById('beatArtist').value,
+      bpm:        document.getElementById('beatBpm').value.trim(),
+      key:        document.getElementById('beatKey').value.trim(),
+      genre:      document.getElementById('beatGenre').value.trim(),
+      price:      document.getElementById('beatPrice').value.trim(),
+      audioUrl:   document.getElementById('beatAudioUrl').value.trim(),
+      gumroadUrl: document.getElementById('beatGumroad').value.trim(),
+      order:      parseInt(document.getElementById('beatOrder').value) || 99,
+      updatedAt:  new Date().toISOString()
+    };
+    try {
+      const editId = document.getElementById('editBeatId').value;
+      if (editId) {
+        await setDoc(doc(db,'beats',editId), beatData, { merge: true });
+      } else {
+        beatData.createdAt = new Date().toISOString();
+        await addDoc(collection(db,'beats'), beatData);
+      }
+      window.clearBeatForm();
+      const flash = document.getElementById('beatSuccess');
+      flash.classList.add('visible');
+      setTimeout(() => flash.classList.remove('visible'), 3000);
+    } catch(e) { alert('Error saving beat: ' + e.message); }
+  };
+
+  window.deleteBeat = async function(beatId, title) {
+    if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+    try {
+      await deleteDoc(doc(db,'beats',beatId));
+    } catch(e) { alert('Error: ' + e.message); }
+  };
+
+  // ── Landing Page ─────────────────────────────────────────
+  async function loadLanding() {
+    try {
+      const snap = await getDoc(doc(db,'siteConfig','landing'));
+      if (!snap.exists()) return;
+      const d = snap.data();
+      const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+      set('featVideoTag',   d.featVideoTag);
+      set('featVideoTitle', d.featVideoTitle);
+      set('featVideoUrl',   d.featVideoUrl);
+      set('featVideoDesc',  d.featVideoDesc);
+      set('bannerTag',      d.bannerTag);
+      set('bannerTitle',    d.bannerTitle);
+      set('bannerDesc',     d.bannerDesc);
+      set('bannerBtnLabel', d.bannerBtnLabel);
+      set('bannerBtnUrl',   d.bannerBtnUrl);
+    } catch(e) {}
+  }
+
+  window.saveLanding = async function() {
+    const get = id => document.getElementById(id)?.value?.trim() || '';
+    try {
+      await setDoc(doc(db,'siteConfig','landing'), {
+        featVideoTag:   get('featVideoTag'),
+        featVideoTitle: get('featVideoTitle'),
+        featVideoUrl:   get('featVideoUrl'),
+        featVideoDesc:  get('featVideoDesc'),
+        bannerTag:      get('bannerTag'),
+        bannerTitle:    get('bannerTitle'),
+        bannerDesc:     get('bannerDesc'),
+        bannerBtnLabel: get('bannerBtnLabel'),
+        bannerBtnUrl:   get('bannerBtnUrl'),
+        updatedAt:      new Date().toISOString()
+      });
+      const flash = document.getElementById('landingSuccess');
+      flash.classList.add('visible');
+      setTimeout(() => flash.classList.remove('visible'), 3000);
+    } catch(e) { alert('Error: ' + e.message); }
+  };
+
+  // ── Links ────────────────────────────────────────────────
+  async function loadLinks() {
+    try {
+      const snap = await getDoc(doc(db,'siteConfig','links'));
+      if (!snap.exists()) return;
+      const d = snap.data();
+      Object.entries(d).forEach(([k,v]) => {
+        const el = document.getElementById(k);
+        if (el && v) el.value = v;
+      });
+    } catch(e) {}
+  }
+
+  window.saveLinks = async function() {
+    const linkIds = [
+      'aa-spotify','aa-apple','aa-soundcloud','aa-youtube','aa-instagram','aa-email',
+      'onkc-beatstore','onkc-soundcloud','onkc-youtube','onkc-instagram','onkc-email',
+      'kdotz-spotify','kdotz-apple','kdotz-youtube','kdotz-instagram','kdotz-email',
+      'torok-spotify','torok-soundcloud','torok-instagram','torok-email'
+    ];
+    const data = {};
+    linkIds.forEach(id => {
+      const v = document.getElementById(id)?.value?.trim();
+      if (v) data[id] = v;
+    });
+    data.updatedAt = new Date().toISOString();
+    try {
+      await setDoc(doc(db,'siteConfig','links'), data, { merge: true });
+      const flash = document.getElementById('linksSuccess');
+      flash.classList.add('visible');
+      setTimeout(() => flash.classList.remove('visible'), 3000);
+    } catch(e) { alert('Error: ' + e.message); }
+  };
+</script>
+</body>
+</html>

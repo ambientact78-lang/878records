@@ -1,154 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Store · 878 Records</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="page-wrapper">
-      <div class="main-card">
-        <!-- Site Heading -->
-        <header>
-          <div class="site-title">878 Records</div>
-          <div class="site-subtitle">Store</div>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <title>Store · 878 Records</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .beat-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 14px;
+    }
+    .beat-section-header h2 { margin: 0; color: var(--accent); font-size: 1.1rem; }
+    .beat-artist-badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #facc15;
+      background: rgba(250,204,21,0.1);
+      border: 1px solid rgba(250,204,21,0.3);
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+    .beat-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+    .beat-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15,23,42,0.72);
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 14px;
+      padding: 10px 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .beat-row:hover { border-color: rgba(250,204,21,0.3); background: rgba(15,23,42,0.9); }
+    .beat-row.playing { border-color: rgba(250,204,21,0.6); background: rgba(250,204,21,0.04); }
+    .beat-play-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(250,204,21,0.7);
+      background: rgba(250,204,21,0.08);
+      color: #facc15;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .beat-play-btn:hover { background: rgba(250,204,21,0.2); transform: scale(1.08); }
+    .beat-info { min-width: 0; }
+    .beat-title { font-weight: 600; font-size: 0.9rem; color: #f9fafb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .beat-tags { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+    .beat-tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
+    .tag-bpm { background: rgba(165,180,252,0.12); color: #a5b4fc; border: 1px solid rgba(165,180,252,0.3); }
+    .tag-key { background: rgba(110,231,183,0.1); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.25); }
+    .tag-genre { background: rgba(196,181,253,0.1); color: #c4b5fd; border: 1px solid rgba(196,181,253,0.25); }
+    .beat-buy-btn {
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(250,204,21,0.13);
+      border: 1.5px solid rgba(250,204,21,0.6);
+      color: #facc15;
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .beat-buy-btn:hover { background: rgba(250,204,21,0.25); transform: translateY(-1px); }
+    .beat-price-tag { font-size: 0.78rem; font-weight: 700; color: #facc15; white-space: nowrap; }
+    .beat-loading { text-align: center; padding: 20px; color: rgba(203,213,245,0.5); font-size: 0.85rem; }
+    .beat-empty { text-align: center; padding: 24px; color: rgba(203,213,245,0.4); font-size: 0.85rem; border: 1px dashed rgba(148,163,184,0.2); border-radius: 14px; }
 
-        <!-- Tabs (Store is active here) -->
-        <nav class="nav-tabs">
-          <a class="nav-tab" href="index.html">Home</a>
-          <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
-          <a class="nav-tab" href="torok.html">Torok</a>
-          <a class="nav-tab" href="kdotz.html">KDOTZ</a>
-          <a class="nav-tab" href="onkc-beats.html">ONKCBeats</a>
-          <a class="nav-tab active" href="store.html">Store</a>
-        </nav>
+    #nowPlayingBar {
+      margin: 14px 0 0;
+      background: rgba(15,23,42,0.97);
+      border: 1px solid rgba(250,204,21,0.4);
+      border-radius: 14px;
+      padding: 10px 16px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(12px);
+    }
+    #nowPlayingBar.visible { display: flex; }
+    .np-pulse { width: 8px; height: 8px; border-radius: 50%; background: #facc15; animation: npulse 1.2s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes npulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    #npTitle { font-weight: 600; font-size: 0.85rem; color: #f9fafb; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #npArtist { font-size: 0.75rem; color: rgba(203,213,245,0.6); white-space: nowrap; }
+    #npStop { background: none; border: none; color: rgba(203,213,245,0.5); cursor: pointer; font-size: 1rem; padding: 2px 6px; }
+    #npStop:hover { color: #f9fafb; }
 
-        <main class="content">
-          <!-- STORE INTRO -->
-          <section style="margin-top: 8px;">
-            <h1>Store</h1>
-            <p class="artist-tagline" style="margin-bottom: 10px;">
-              Browse services, albums, singles, beats, kits, and free downloads from the 878 Records roster.
-            </p>
-          </section>
+    .admin-link-row { text-align: right; margin-top: 14px; }
+    .admin-link-row a { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(148,163,184,0.35); text-decoration: none; }
+    .admin-link-row a:hover { color: rgba(148,163,184,0.7); }
 
-          <!-- SERVICES SECTION -->
-<section style="margin-top: 18px;">
-  <h2>Services</h2>
+    .square-buy-button {
+      display: inline-block; padding: 10px 20px; border-radius: 999px;
+      background: rgba(250,204,21,0.15); border: 1.5px solid rgba(250,204,21,0.6);
+      color: #facc15; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; transition: background 0.15s;
+    }
+    .square-buy-button:hover { background: rgba(250,204,21,0.28); }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="main-card">
+    <header>
+      <div class="site-title">878 Records</div>
+      <div class="site-subtitle">Store</div>
+    </header>
+    <nav class="nav-tabs">
+      <a class="nav-tab" href="index.html">Home</a>
+      <a class="nav-tab" href="ambient-act.html">Ambient Act</a>
+      <a class="nav-tab" href="torok.html">Torok</a>
+      <a class="nav-tab" href="kdotz.html">KDOTZ</a>
+      <a class="nav-tab" href="onkc-beats.html">ONKCBeats</a>
+      <a class="nav-tab active" href="store.html">Store</a>
+    </nav>
 
-  <div class="service-card">
-    <div class="service-title">
-      One-Time Vocal / Mix Processing Service
-    </div>
+    <main class="content">
+      <section style="margin-top:8px;">
+        <h1>Store</h1>
+        <p class="artist-tagline" style="margin-bottom:10px;">Browse beats, services, albums, and singles from the 878 Records roster.</p>
+      </section>
 
-    <div class="service-meta">
-      Step 1: Pay using Stripe below.<br />
-      Step 2: Fill out the form and pick <strong>3 plugins</strong>, add notes, and receive instructions to email your files.<br />
-      Step 3: Receive your processed files within 24 hours of submission.
-    </div>
-
-    <div class="service-footer">
-      <div class="service-price">$4.99</div>
-
-      <div class="service-action">
-        <a
-          href="https://buy.stripe.com/5kQ4gsed3f028aabVT8IU02"
-          target="_blank"
-          rel="noopener"
-        >
-          Pay $4.99 for One-Time Service
-        </a>
+      <!-- AMBIENT ACT BEATS -->
+      <div class="beat-section-header">
+        <h2>Beats</h2>
+        <span class="beat-artist-badge">Ambient Act</span>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="beat-list" id="aa-beats">
+        <div class="beat-loading">Loading beats…</div>
+      </div>
 
+      <!-- ONKC BEATS -->
+      <div class="beat-section-header" style="margin-top:32px;">
+        <h2>Beats</h2>
+        <span class="beat-artist-badge">ONKC Beats</span>
+      </div>
+      <div class="beat-list" id="onkc-beats">
+        <div class="beat-loading">Loading beats…</div>
+      </div>
 
-          <!-- ALBUMS / SINGLES -->
-          <section style="margin-top: 26px;">
-            <h2>Albums &amp; Singles</h2>
+      <!-- Now Playing Bar -->
+      <div id="nowPlayingBar">
+        <div class="np-pulse"></div>
+        <span id="npTitle">—</span>
+        <span id="npArtist"></span>
+        <button id="npStop" onclick="window.stopAll()" title="Stop playback">■</button>
+      </div>
 
-            <div class="product-grid" style="margin-top: 10px;">
-              <!-- Senioritis -->
-              <article class="product-card">
-                <div>
-                  <div class="product-title">Senioritis · Ambient Act</div>
-                  <div class="product-meta">
-                    EP · Digital download<br />
-                    Introspective alt-pop and rap for late-night listening.
-                  </div>
-                </div>
-
-                <div class="product-footer">
-                  <span class="product-price">$2.99</span>
-                  <a
-                    class="square-buy-button"
-                    href="https://buy.stripe.com/00waEQ3yp6twcqq3pn8IU01"
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Buy Senioritis
-                  </a>
-                </div>
-              </article>
-
-              <!-- Come Up -->
-              <article class="product-card">
-                <div>
-                  <div class="product-title">Come Up · Ambient Act ft. ONKC Beats</div>
-                  <div class="product-meta">
-                    Single · Digital download<br />
-                    Energetic, uplifting track produced with ONKCBeats.
-                  </div>
-                </div>
-
-                <div class="product-footer">
-                  <span class="product-price">$0.99</span>
-                  <a
-                 class="square-buy-button"
-                 href="https://buy.stripe.com/5kQ5kw7OF8BE9ee9NL8IU00"
-                target="_blank"
-                rel="noopener"
-                  >
-                Buy Come Up
-                </a>
-
-                </div>
-              </article>
+      <!-- SERVICES -->
+      <section style="margin-top:38px;">
+        <h2>Services</h2>
+        <div class="service-card">
+          <div class="service-title">One-Time Vocal / Mix Processing Service</div>
+          <div class="service-meta">
+            Step 1: Pay using Stripe below.<br/>
+            Step 2: Fill out the form, pick <strong>3 plugins</strong>, add notes, and email your files.<br/>
+            Step 3: Receive your processed files within 24 hours.
+          </div>
+          <div class="service-footer">
+            <div class="service-price">$4.99</div>
+            <div class="service-action">
+              <a href="https://buy.stripe.com/5kQ4gsed3f028aabVT8IU02" target="_blank" rel="noopener">Pay $4.99 for One-Time Service</a>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          <!-- BEATS -->
-          <section style="margin-top: 26px;">
-            <h2>Beats</h2>
-            <p style="margin-top: 10px;">
-              Beats will be available here soon. Check back for lease options, exclusives, and bundles.
-            </p>
-          </section>
+      <!-- ALBUMS / SINGLES -->
+      <section style="margin-top:26px;">
+        <h2>Albums &amp; Singles</h2>
+        <div class="product-grid" style="margin-top:10px;">
+          <article class="product-card">
+            <div>
+              <div class="product-title">Senioritis · Ambient Act</div>
+              <div class="product-meta">EP · Digital download<br/>Introspective alt-pop and rap for late-night listening.</div>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$2.99</span>
+              <a class="square-buy-button" href="https://buy.stripe.com/00waEQ3yp6twcqq3pn8IU01" target="_blank" rel="noopener">Buy Senioritis</a>
+            </div>
+          </article>
+          <article class="product-card">
+            <div>
+              <div class="product-title">Come Up · Ambient Act ft. ONKC Beats</div>
+              <div class="product-meta">Single · Digital download<br/>Energetic, uplifting track produced with ONKCBeats.</div>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$0.99</span>
+              <a class="square-buy-button" href="https://buy.stripe.com/5kQ5kw7OF8BE9ee9NL8IU00" target="_blank" rel="noopener">Buy Come Up</a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-          <!-- KITS -->
-          <section style="margin-top: 26px;">
-            <h2>Kits</h2>
-            <p style="margin-top: 10px;">
-              Kits are coming soon — including drums, textures, and vocal FX pulled from 878 sessions.
-            </p>
-          </section>
+      <!-- KITS -->
+      <section style="margin-top:26px;">
+        <h2>Kits</h2>
+        <p style="margin-top:8px;">Kits are coming soon — drums, textures, and vocal FX pulled from 878 sessions.</p>
+      </section>
 
-          <!-- FREE STUFF -->
-          <section style="margin-top: 26px; margin-bottom: 6px;">
-            <h2>Free</h2>
-            <p class="artist-tagline">
-              Free samples, demos, and extras will live here soon — no commitment, just vibes.
-            </p>
-          </section>
-        </main>
+      <!-- FREE -->
+      <section style="margin-top:26px; margin-bottom:6px;">
+        <h2>Free</h2>
+        <p class="artist-tagline">Free samples, demos, and extras will live here soon.</p>
+      </section>
 
-        <footer class="footer">
-          © 878 Records · Store
-        </footer>
-      </div>
-    </div>
-  </body>
+      <div class="admin-link-row"><a href="admin.html">Admin ↗</a></div>
+    </main>
+
+    <footer class="footer">© 878 Records · Store</footer>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, query, where, orderBy, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ╔══════════════════════════════════════════════════════╗
+  // ║  PASTE YOUR FIREBASE CONFIG HERE (from admin.html)  ║
+  // ╚══════════════════════════════════════════════════════╝
+ const firebaseConfig = {
+    apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
+    authDomain:        "records-website-2f8fe.firebaseapp.com",
+    projectId:         "records-website-2f8fe",
+    storageBucket:     "records-website-2f8fe.firebasestorage.app",
+    messagingSenderId: "456307633504",
+    appId:             "1:456307633504:web:b78fbb00d0bd1e87750205"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+
+  let currentAudio = null;
+  let currentRowEl = null;
+
+  window.stopAll = function() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+    if (currentRowEl) {
+      currentRowEl.classList.remove('playing');
+      const btn = currentRowEl.querySelector('.beat-play-btn');
+      if (btn) btn.textContent = '▶';
+    }
+    currentAudio = null; currentRowEl = null;
+    document.getElementById('nowPlayingBar').classList.remove('visible');
+  };
+
+  window.toggleBeat = function(audioUrl, title, artistLabel, beatId) {
+    const rowEl = document.getElementById('beat-' + beatId);
+    if (currentRowEl === rowEl) { window.stopAll(); return; }
+    if (currentAudio) window.stopAll();
+
+    currentAudio = new Audio(audioUrl);
+    currentRowEl = rowEl;
+    rowEl.classList.add('playing');
+    const btn = rowEl.querySelector('.beat-play-btn');
+    if (btn) btn.textContent = '■';
+    document.getElementById('npTitle').textContent  = title;
+    document.getElementById('npArtist').textContent = artistLabel;
+    document.getElementById('nowPlayingBar').classList.add('visible');
+
+    currentAudio.play().catch(() => {});
+    currentAudio.onended = () => {
+      rowEl.classList.remove('playing');
+      if (btn) btn.textContent = '▶';
+      document.getElementById('nowPlayingBar').classList.remove('visible');
+      currentAudio = null; currentRowEl = null;
+    };
+  };
+
+  function renderBeats(beats, containerId, artistLabel) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (beats.length === 0) {
+      container.innerHTML = '<div class="beat-empty">No beats uploaded yet — check back soon.</div>';
+      return;
+    }
+    container.innerHTML = beats.map(b => {
+      const safeTitle  = b.title.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const safeArtist = artistLabel.replace(/'/g, "\\'");
+      const hasAudio   = b.audioUrl && b.audioUrl.trim() !== '';
+      const hasGumroad = b.gumroadUrl && b.gumroadUrl.trim() !== '';
+      return `<div class="beat-row" id="beat-${b.id}">
+        <button class="beat-play-btn"
+          ${hasAudio ? `onclick="window.toggleBeat('${b.audioUrl.replace(/'/g,"\\'")}','${safeTitle}','${safeArtist}','${b.id}')"` : 'disabled style="opacity:0.3;cursor:not-allowed;"'}>▶</button>
+        <div class="beat-info">
+          <div class="beat-title">${b.title}</div>
+          <div class="beat-tags">
+            ${b.bpm   ? `<span class="beat-tag tag-bpm">${b.bpm} BPM</span>`  : ''}
+            ${b.key   ? `<span class="beat-tag tag-key">${b.key}</span>`       : ''}
+            ${b.genre ? `<span class="beat-tag tag-genre">${b.genre}</span>`   : ''}
+          </div>
+        </div>
+        ${b.price ? `<span class="beat-price-tag">$${b.price}</span>` : ''}
+        ${hasGumroad
+          ? `<a class="beat-buy-btn" href="${b.gumroadUrl}" target="_blank" rel="noopener">Buy</a>`
+          : `<span style="font-size:0.7rem;color:rgba(148,163,184,0.35);text-transform:uppercase;letter-spacing:0.08em;">Soon</span>`}
+      </div>`;
+    }).join('');
+  }
+
+  const aaQ   = query(collection(db,'beats'), where('artist','==','ambient-act'), orderBy('order','asc'));
+  const onkcQ = query(collection(db,'beats'), where('artist','==','onkc'),        orderBy('order','asc'));
+
+  onSnapshot(aaQ, snap => {
+    renderBeats(snap.docs.map(d => ({ id: d.id, ...d.data() })), 'aa-beats', 'Ambient Act');
+  }, () => {
+    document.getElementById('aa-beats').innerHTML = '<div class="beat-empty">Configure Firebase to load beats.</div>';
+  });
+
+  onSnapshot(onkcQ, snap => {
+    renderBeats(snap.docs.map(d => ({ id: d.id, ...d.data() })), 'onkc-beats', 'ONKC Beats');
+  }, () => {
+    document.getElementById('onkc-beats').innerHTML = '<div class="beat-empty">Configure Firebase to load beats.</div>';
+  });
+</script>
+</body>
 </html>
