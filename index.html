@@ -172,5 +172,43 @@ showcasing KDOTZ not just as a rapper, but as a complete visual storyteller.
         </footer>
       </div>
     </div>
+
+<!-- Firebase SDKs -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // 🔥 YOUR FIREBASE CONFIG
+   const firebaseConfig = {
+    apiKey:            "AIzaSyDi3--yaNha7pu2OjfoYh8hQFwQlT0soWo",
+    authDomain:        "records-website-2f8fe.firebaseapp.com",
+    projectId:         "records-website-2f8fe",
+    storageBucket:     "records-website-2f8fe.firebasestorage.app",
+    messagingSenderId: "456307633504",
+    appId:             "1:456307633504:web:b78fbb00d0bd1e87750205"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Pull Home Page Config
+  async function loadHomePage() {
+    const docRef = doc(db, "siteContent", "home");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      // Update page elements
+      document.getElementById("heroTitle").innerText = data.title;
+      document.getElementById("heroSubtitle").innerText = data.subtitle;
+      document.getElementById("featuredVideo").src = data.videoUrl;
+    }
+  }
+
+  loadHomePage();
+</script>
+
   </body>
 </html>
