@@ -175,7 +175,7 @@ of hip-hop production, sampling, and storytelling.
   const db = getFirestore(app);
 
   async function loadHomePage() {
-    const docRef = doc(db, "siteContent", "home");
+    const docRef = doc(db, "siteConfig", "landing");
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
